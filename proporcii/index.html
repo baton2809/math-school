@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2c56d8">
+<title>Пропорции — Математика в картинках</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<style>
+
+/* Layout: приложение на один экран. Сверху вкладки 1–5, в центре рисунок + панель управления, снизу «Назад / Дальше». Страница не прокручивается. */
+:root{
+  --bg:#eef1f7; --surface:#ffffff; --ink:#1b2333; --muted:#5c6577; --line:#d6dce8;
+  --accent:#2c56d8; --on-accent:#ffffff; --t1:#2c56d8; --t2:#d9771c; --t3:#1f9a6e; --bad:#c9373b; --good:#1f9a6e;
+  --chip:#e6ebf7;
+  --display:"Unbounded", "Golos Text", system-ui, sans-serif;
+  --body:"Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10141b; --surface:#1a202b; --ink:#e7ebf3; --muted:#9aa3b5; --line:#2e3646;
+    --accent:#7b9cff; --on-accent:#0e1320; --t1:#7b9cff; --t2:#f2a352; --t3:#4fcf9d; --bad:#ff6b6e; --good:#4fcf9d;
+    --chip:#232c3c; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10141b; --surface:#1a202b; --ink:#e7ebf3; --muted:#9aa3b5; --line:#2e3646;
+  --accent:#7b9cff; --on-accent:#0e1320; --t1:#7b9cff; --t2:#f2a352; --t3:#4fcf9d; --bad:#ff6b6e; --good:#4fcf9d;
+  --chip:#232c3c; color-scheme: dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.45;overscroll-behavior:none}
+.app{height:100vh;height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr) auto;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+
+/* ---- верх ---- */
+.top{display:flex;align-items:center;gap:16px;padding:12px 18px;background:var(--surface);border-bottom:1px solid var(--line)}
+.home{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--chip);color:var(--ink);text-decoration:none;font-size:22px;font-weight:700;flex:none}
+.home:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.brand{font-family:var(--display);font-weight:600;font-size:18px;white-space:nowrap}
+.brand small{display:block;font-family:var(--body);font-weight:500;font-size:12.5px;color:var(--muted)}
+.steps{display:flex;gap:6px;flex:1;justify-content:flex-end;flex-wrap:nowrap;overflow-x:auto}
+.steps button{display:flex;align-items:center;gap:8px;min-height:48px;padding:6px 14px 6px 8px;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--muted);font:inherit;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap}
+.steps button .num{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--chip);color:var(--ink);font-size:15px}
+.steps button[aria-selected="true"]{background:var(--chip);color:var(--ink);border-color:var(--accent)}
+.steps button[aria-selected="true"] .num{background:var(--accent);color:var(--on-accent)}
+.steps button.done .num{background:var(--good);color:#fff}
+
+/* ---- экраны ---- */
+.screens{min-height:0;position:relative}
+.screen{display:none;height:100%;padding:14px 18px;gap:14px;grid-template-columns:minmax(0,1.5fr) minmax(330px,1fr);grid-template-rows:minmax(0,1fr)}
+.screen.active{display:grid}
+.stage-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 16px 10px;display:flex;flex-direction:column;min-height:0;touch-action:pan-y}
+.stage-card h2{font-family:var(--display);font-weight:500;font-size:clamp(18px,2.2vw,23px);margin:0 0 4px;text-wrap:balance}
+.stage-card .sub{margin:0 0 8px;color:var(--muted);font-size:15px}
+.stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.stage svg{width:100%;height:100%;max-height:100%;display:block}
+.panel{min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding-right:2px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.box h3{margin:0 0 6px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.todo{list-style:none;margin:2px 0 8px;padding:0;display:flex;flex-wrap:wrap;gap:6px 18px;counter-reset:t;font-size:15px}
+.todo li{counter-increment:t;display:flex;align-items:center;gap:7px}
+.todo li::before{content:counter(t);display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:12.5px;font-weight:700;flex:none}
+.ask{margin:8px 0 2px;background:var(--chip);border-radius:10px;padding:9px 12px;font-size:15.5px}
+.ask b{color:var(--accent)}
+
+/* ---- элементы управления ---- */
+.ctl{display:grid;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+button{font:inherit;color:var(--ink);cursor:pointer}
+.chips button,.toggle{min-height:44px;padding:6px 14px;font-size:16px;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;font-variant-numeric:tabular-nums}
+.chips button[aria-pressed="true"],.toggle[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.slider{display:grid;grid-template-columns:5.6em 44px minmax(80px,1fr) 44px 2.6ch;align-items:center;gap:8px}
+.slider label{color:var(--muted);font-size:15px;white-space:nowrap}
+.slider output{font-weight:700;font-size:19px;text-align:right;font-variant-numeric:tabular-nums}
+.step-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);font-size:22px;font-weight:600;line-height:1;display:grid;place-items:center}
+.step-btn:active{background:var(--chip)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:36px;background:transparent;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:4px;background:var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:var(--accent);border:3px solid var(--surface);margin-top:-11px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+input[type=range]::-moz-range-track{height:8px;border-radius:4px;background:var(--line)}
+input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--accent);border:3px solid var(--surface)}
+input[type=range]:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+
+.formula{display:grid;gap:8px;font-size:17px;font-variant-numeric:tabular-nums}
+.formula .row{display:grid;gap:1px}
+.formula .tag{font-size:12.5px;color:var(--muted)}
+.ok{color:var(--good);font-weight:700}
+.no{color:var(--bad);font-weight:700}
+.c1{color:var(--t1);font-weight:700}.c2{color:var(--t2);font-weight:700}.c3{color:var(--t3);font-weight:700}
+
+/* ---- низ ---- */
+.bottom{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:10px 18px;background:var(--surface);border-top:1px solid var(--line)}
+.nav{min-height:54px;padding:0 22px;border-radius:14px;font-size:18px;font-weight:600;border:1.5px solid var(--line);background:var(--surface)}
+.nav:disabled{opacity:.35;cursor:default}
+#prev{justify-self:start}
+#next{justify-self:end;background:var(--accent);border-color:var(--accent);color:var(--on-accent);min-width:200px}
+.where{text-align:center;color:var(--muted);font-size:15px}
+.where b{color:var(--ink)}
+.dots{display:flex;gap:7px;justify-content:center;margin-top:4px}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--accent);width:24px;border-radius:5px}
+
+svg text{font-family:var(--body)}
+
+/* ---- планшет вертикально и узкие экраны ---- */
+@media (orientation: portrait), (max-width: 860px){
+  .screen{grid-template-columns:1fr;grid-template-rows:minmax(220px,1fr) auto}
+  .panel{max-height:52dvh}
+  .steps button .lbl{display:none}
+  .steps button{padding:6px}
+  .brand{font-size:16px}
+}
+@media (max-width: 520px){
+  .brand small{display:none}
+  .screen{padding:10px;gap:10px}
+  .bottom{padding:8px 10px}
+  #next{min-width:0}
+  .nav{padding:0 14px;font-size:16px}
+  .where .hint{display:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .screen.active .stage-card,.screen.active .panel{animation:enter .25s ease}
+  @keyframes enter{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+}
+
+/* --- дополнения для пропорций --- */
+.qcard{width:100%;max-width:640px;margin:auto;display:grid;gap:14px;align-content:center;background:var(--chip);border-radius:16px;padding:24px 26px}
+.qcard .qnum{font-size:14px;color:var(--muted);font-weight:600}
+.qcard .qtext{font-size:clamp(20px,2.6vw,27px);line-height:1.35;font-weight:500;text-wrap:balance}
+.answers{display:flex;flex-wrap:wrap;gap:10px}
+.answers button{min-height:52px;padding:8px 18px;font-size:18px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:600}
+.answers button.right{background:var(--good);border-color:var(--good);color:#fff}
+.answers button.wrong{background:var(--bad);border-color:var(--bad);color:#fff}
+.answers button:disabled{cursor:default}
+.score{font-size:15px;color:var(--muted)}
+.big-next{min-height:50px;padding:0 20px;border-radius:12px;font-size:17px;font-weight:600;background:var(--accent);border:0;color:var(--on-accent)}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <a class="home" href="../" aria-label="Все темы">←</a>
+    <div class="brand">Пропорции<small>6 класс · математика в картинках</small></div>
+    <nav class="steps" role="tablist" aria-label="Задания">
+      <button role="tab" data-go="0"><span class="num">1</span><span class="lbl">Краски</span></button>
+      <button role="tab" data-go="1"><span class="num">2</span><span class="lbl">Цена за 1</span></button>
+      <button role="tab" data-go="2"><span class="num">3</span><span class="lbl">Найди x</span></button>
+      <button role="tab" data-go="3"><span class="num">4</span><span class="lbl">Прямая/обратная</span></button>
+      <button role="tab" data-go="4"><span class="num">5</span><span class="lbl">Ловушки</span></button>
+    </nav>
+  </header>
+
+  <main class="screens">
+    <!-- 1 Краски -->
+    <section class="screen" role="tabpanel" aria-label="Отношение как рецепт краски">
+      <div class="stage-card">
+        <h2>Отношение — это рецепт</h2>
+        <p class="sub">Смешиваем синюю и жёлтую краску. Цвет зависит не от количества банок, а от того, во сколько раз одной краски больше, чем другой.</p>
+        <ol class="todo"><li>Нажми «Удвоить рецепт» и «+2 банки к каждой».</li><li>Сравни цвета.</li><li>Подбери свой рецепт Б того же цвета.</li></ol>
+        <div class="stage" id="p-stage"></div>
+        <p class="ask"><b>Вопрос:</b> почему от удвоения цвет не меняется, а от «+2 к каждой» меняется?</p>
+      </div>
+      <aside class="panel">
+        <div class="box ctl">
+          <div class="chips"><button class="toggle" id="p-x2">Удвоить рецепт А</button><button class="toggle" id="p-x3">Утроить рецепт А</button><button class="toggle" id="p-add">+2 банки к каждой</button></div>
+          <div class="slider"><label for="p-ab">А: синих</label><input type="range" id="p-ab" min="1" max="6" value="2"><output id="p-ab-out" for="p-ab">2</output></div>
+          <div class="slider"><label for="p-ay">А: жёлтых</label><input type="range" id="p-ay" min="1" max="6" value="3"><output id="p-ay-out" for="p-ay">3</output></div>
+          <div class="slider"><label for="p-bb">Б: синих</label><input type="range" id="p-bb" min="1" max="12" value="4"><output id="p-bb-out" for="p-bb">4</output></div>
+          <div class="slider"><label for="p-by">Б: жёлтых</label><input type="range" id="p-by" min="1" max="12" value="5"><output id="p-by-out" for="p-by">5</output></div>
+        </div>
+        <div class="box formula" id="p-formula"></div>
+      </aside>
+    </section>
+
+    <!-- 2 Двойная прямая -->
+    <section class="screen" role="tabpanel" aria-label="Двойная числовая прямая">
+      <div class="stage-card">
+        <h2>Сначала найди, сколько на одну</h2>
+        <p class="sub" id="d-text"></p>
+        <ol class="todo"><li>Найди на рисунке зелёную пару: сколько стоит одна.</li><li>Выбери, сколько штук нужно.</li><li>Скажи ответ, потом проверь.</li></ol>
+        <div class="stage" id="d-stage"></div>
+        <p class="ask"><b>Вопрос:</b> во сколько раз мы уменьшили количество, чтобы дойти до одной? А цену?</p>
+      </div>
+      <aside class="panel">
+        <div class="box ctl">
+          <div class="chips" id="d-presets" role="group" aria-label="Задача"></div>
+          <div class="slider"><label for="d-n">Нужно</label><input type="range" id="d-n" min="0" max="12" value="7"><output id="d-n-out" for="d-n">7</output></div>
+          <div><button class="toggle" id="d-show" aria-pressed="false">Показать ответ</button></div>
+        </div>
+        <div class="box formula" id="d-formula"></div>
+      </aside>
+    </section>
+
+    <!-- 3 Найди x -->
+    <section class="screen" role="tabpanel" aria-label="Найди x тремя способами">
+      <div class="stage-card">
+        <h2>Одна задача, три способа</h2>
+        <p class="sub" id="x-text"></p>
+        <ol class="todo"><li>Выбери задачу.</li><li>Попробуй все три способа.</li><li>Реши, какой удобнее именно для этих чисел.</li></ol>
+        <div class="stage" id="x-stage"></div>
+        <p class="ask"><b>Вопрос:</b> почему «крест» даёт тот же ответ? Какой способ ты выберешь для чисел 3 и 7?</p>
+      </div>
+      <aside class="panel">
+        <div class="box ctl">
+          <div class="chips" id="x-presets" role="group" aria-label="Задача"></div>
+          <div class="chips" id="x-ways" role="group" aria-label="Способ"></div>
+        </div>
+        <div class="box formula" id="x-formula"></div>
+      </aside>
+    </section>
+
+    <!-- 4 Прямая/обратная -->
+    <section class="screen" role="tabpanel" aria-label="Прямая и обратная пропорциональность">
+      <div class="stage-card">
+        <h2>Прямая или обратная: смотри на прямоугольник</h2>
+        <p class="sub" id="r-text"></p>
+        <ol class="todo"><li>Двигай ползунок и смотри, что не меняется.</li><li>Переключи на вторую задачу.</li><li>Найди, что стало ×2, а что ÷2.</li></ol>
+        <div class="stage" id="r-stage"></div>
+        <p class="ask" id="r-ask"></p>
+      </div>
+      <aside class="panel">
+        <div class="box ctl">
+          <div class="chips" id="r-modes" role="group" aria-label="Задача"></div>
+          <div class="slider"><label for="r-v" id="r-label">Масса, кг</label><input type="range" id="r-v" min="1" max="10" value="3"><output id="r-v-out" for="r-v">3</output></div>
+        </div>
+        <div class="box formula" id="r-formula"></div>
+      </aside>
+    </section>
+
+    <!-- 5 Ловушки -->
+    <section class="screen" role="tabpanel" aria-label="Ловушки: пропорция или нет">
+      <div class="stage-card">
+        <h2>Ловушки: это вообще пропорция?</h2>
+        <p class="sub">Не всё на свете пропорционально. Прежде чем считать, спроси себя: если одно станет в 2 раза больше, что будет со вторым?</p>
+        <div class="stage"><div class="qcard" id="c-card"></div></div>
+      </div>
+      <aside class="panel">
+        <div class="box ctl">
+          <div class="score" id="c-score"></div>
+          <div class="answers" id="c-answers"></div>
+        </div>
+        <div class="box formula" id="c-feedback"></div>
+        <div><button class="big-next" id="c-next">Следующая карточка →</button></div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="bottom">
+    <button class="nav" id="prev">← Назад</button>
+    <div class="where"><b id="where-n">Задание 1 из 5</b><div class="dots" id="dots"></div></div>
+    <button class="nav" id="next">Дальше →</button>
+  </footer>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const M = '−';
+  const FS = 'font-family:var(--body);';
+  const redraw = {};
+  const fmt = n => (Math.round(n*100)/100).toString().replace('.', ',');
+
+  function linkSlider(id, cb){
+    const el = $(id), out = $(id+'-out'), wrap = el.parentNode;
+    const minus = document.createElement('button'); minus.className='step-btn'; minus.type='button'; minus.textContent='−'; minus.setAttribute('aria-label','Меньше');
+    const plus = document.createElement('button'); plus.className='step-btn'; plus.type='button'; plus.textContent='+'; plus.setAttribute('aria-label','Больше');
+    wrap.insertBefore(minus, el); wrap.insertBefore(plus, out);
+    const set = v => { v = Math.max(+el.min, Math.min(+el.max, v)); el.value = v; out.textContent = el.dataset.labels ? el.dataset.labels.split(',')[v] : v; cb(); };
+    minus.addEventListener('click', ()=> set(+el.value - 1));
+    plus.addEventListener('click', ()=> set(+el.value + 1));
+    el.addEventListener('input', () => { out.textContent = el.dataset.labels ? el.dataset.labels.split(',')[+el.value] : el.value; cb(); });
+    el._set = set;
+  }
+  function chips(container, items, cb, start){
+    items.forEach((it,i)=>{
+      const b = document.createElement('button'); b.type='button'; b.textContent = it; b.setAttribute('aria-pressed', i===start ? 'true':'false');
+      b.addEventListener('click', ()=>{ [...container.children].forEach((c,j)=>c.setAttribute('aria-pressed', j===i?'true':'false')); cb(i); });
+      container.appendChild(b);
+    });
+  }
+  const svgWrap = (w, h, label, body) => `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${label}">${body}</svg>`;
+  const T = (x,y,txt,opt='') => `<text x="${x}" y="${y}" ${opt.includes('anchor')?'':'text-anchor="middle"'} style="${FS}${opt.replace('anchor','')}">${txt}</text>`;
+
+  /* ---------- 1. Краски ---------- */
+  const BLUE=[37,99,235], GREEN=[22,163,74], YEL=[250,204,21];
+  const lerp=(a,b,t)=>a.map((v,i)=>Math.round(v+(b[i]-v)*t));
+  const mix=(b,y)=>{ const t=y/(b+y); return `hsl(${Math.round(232-182*t)},78%,${Math.round(34+26*t)}%)`; };
+  function drawPaint(){
+    const ab=+$('p-ab').value, ay=+$('p-ay').value, bb=+$('p-bb').value, by=+$('p-by').value;
+    const same = ab*by === bb*ay;
+    let g='';
+    const recipe=(x0,name,b,y)=>{
+      let s = T(x0+160,26,name,'fill:var(--ink);font-size:19px;font-weight:700');
+      for(let i=0;i<b;i++) s+=`<rect x="${x0+8+i*26}" y="44" width="22" height="26" rx="4" style="fill:rgb(${BLUE.join(',')})"/>`;
+      for(let i=0;i<y;i++) s+=`<rect x="${x0+8+i*26}" y="78" width="22" height="26" rx="4" style="fill:rgb(${YEL.join(',')})"/>`;
+      s+=`<circle cx="${x0+160}" cy="180" r="58" style="fill:${mix(b,y)};stroke:var(--line);stroke-width:2"/>`;
+      s+=T(x0+160,272,`${b} : ${y}`,'fill:var(--ink);font-size:26px;font-weight:700');
+      
+      return s;
+    };
+    g+=recipe(30,'Рецепт А',ab,ay)+recipe(410,'Рецепт Б',bb,by);
+    g+=T(380,186,same?'=':'≠',`fill:${same?'var(--good)':'var(--bad)'};font-size:44px;font-weight:700`);
+    // шкала цвета: где каждый рецепт
+    let strip='';
+    for(let i=0;i<60;i++){ const t=i/59; strip+=`<rect x="${70+i*10.5}" y="322" width="11" height="16" style="fill:hsl(${Math.round(232-182*t)},78%,${Math.round(34+26*t)}%)"/>`; }
+    const mk=(t,lab,dy)=>{ const x=70+t*620; return `<path d="M${x} 318 l-7 -12 h14 z" style="fill:var(--ink)"/>`+T(x,300+dy,lab,'fill:var(--ink);font-size:15px;font-weight:700'); };
+    const ta=ay/(ab+ay), tb=by/(bb+by);
+    g+=strip+T(70,358,'больше синей','anchor;fill:var(--muted);font-size:12.5px')+T(690,358,'больше жёлтой','anchor;fill:var(--muted);font-size:12.5px;text-anchor:end');
+    g+=mk(ta,'А', Math.abs(ta-tb)<0.04 ? -14 : 0)+mk(tb,'Б', 0);
+    $('p-stage').innerHTML = svgWrap(760,366,'Два рецепта краски и получившиеся цвета',g);
+    const k = bb/ab, k2 = by/ay;
+    let f = `<div class="row"><span class="tag">Сравним крест-накрест</span><span>${ab} · ${by} = ${ab*by} и ${ay} · ${bb} = ${ay*bb} → <span class="${same?'ok':'no'}">${same?'цвет одинаковый ✓':'цвет разный ✗'}</span></span></div>`;
+    if (same && k!==1) f += `<div class="row"><span class="tag">Почему</span><span>обе краски взяли в одно и то же число раз: ×${fmt(k)}</span></div>`;
+    else if (!same) f += `<div class="row"><span class="tag">Почему</span><span>синюю взяли ×${fmt(k)}, а жёлтую ×${fmt(k2)}: раз разные, рецепт другой</span></div>`;
+    f += `<div class="row"><span class="tag">Осторожно: доля, а не отношение</span><span>синей краски в А: ${ab} банки из ${ab+ay}, то есть ${ab}/${ab+ay}, а не ${ab}/${ay}</span></div>`;
+    $('p-formula').innerHTML = f;
+  }
+  ['p-ab','p-ay','p-bb','p-by'].forEach(id=>linkSlider(id, drawPaint));
+  const setB=(b,y)=>{ $('p-bb')._set(b); $('p-by')._set(y); };
+  $('p-x2').addEventListener('click',()=>setB(+$('p-ab').value*2, +$('p-ay').value*2));
+  $('p-x3').addEventListener('click',()=>setB(+$('p-ab').value*3, +$('p-ay').value*3));
+  $('p-add').addEventListener('click',()=>setB(+$('p-ab').value+2, +$('p-ay').value+2));
+  redraw[0]=drawPaint;
+
+  /* ---------- 2. Двойная прямая ---------- */
+  const D=[
+    {t:'3 тетради стоят 45 ₽. Сколько стоят', what:'тетрадей', k:3, P:45, u:'₽', max:12, top:'тетради, шт', bot:'стоимость, ₽'},
+    {t:'4 кг яблок стоят 360 ₽. Сколько стоят', what:'кг', k:4, P:360, u:'₽', max:10, top:'масса, кг', bot:'стоимость, ₽'},
+    {t:'За 5 часов поезд проехал 300 км. Сколько он проедет за', what:'ч', k:5, P:300, u:'км', max:10, top:'время, ч', bot:'путь, км'}
+  ];
+  let dp=0;
+  chips($('d-presets'), ['Тетради','Яблоки','Поезд'], i=>{ dp=i; const el=$('d-n'); el.max=D[i].max; if(+el.value>D[i].max) el.value=D[i].max; $('d-n-out').textContent=el.value; drawDNL(); }, 0);
+  function drawDNL(){
+    const p=D[dp], n=+$('d-n').value, show=$('d-show').getAttribute('aria-pressed')==='true';
+    const unit=p.P/p.k;
+    $('d-text').textContent = `${p.t} ${n} ${p.what}?`;
+    const X=i=>140+i*(580/p.max), yt=110, yb=230;
+    let g='<defs><marker id="dar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--muted)"/></marker></defs>';
+    g+=`<line x1="${X(0)-6}" x2="${X(p.max)+16}" y1="${yt}" y2="${yt}" style="stroke:var(--ink);stroke-width:1.6"/><line x1="${X(0)-6}" x2="${X(p.max)+16}" y1="${yb}" y2="${yb}" style="stroke:var(--ink);stroke-width:1.6"/>`;
+    g+=T(8,yt+5,p.top,'anchor;fill:var(--muted);font-size:14px;font-weight:600')+T(8,yb+5,p.bot,'anchor;fill:var(--muted);font-size:14px;font-weight:600');
+    for(let i=0;i<=p.max;i++){
+      g+=`<line x1="${X(i)}" x2="${X(i)}" y1="${yt-6}" y2="${yt+6}" style="stroke:var(--ink)"/><line x1="${X(i)}" x2="${X(i)}" y1="${yb-6}" y2="${yb+6}" style="stroke:var(--ink)"/>`;
+      g+=T(X(i),yt-12,i,`fill:${[1,p.k,n].includes(i)?'var(--ink)':'var(--muted)'};font-size:${[1,p.k,n].includes(i)?17:13}px;font-weight:${[1,p.k,n].includes(i)?700:400}`);
+    }
+    const pair=(i,val,col,lab)=>`<line x1="${X(i)}" x2="${X(i)}" y1="${yt+8}" y2="${yb-8}" style="stroke:${col};stroke-width:2.4;stroke-dasharray:5 4"/>`+T(X(i),yb+28,lab,`fill:${col};font-size:18px;font-weight:700`);
+    g+=pair(p.k,p.P,'var(--t1)',p.P)+pair(1,unit,'var(--good)',unit);
+    if(n!==1 && n!==p.k) g+=pair(n,unit*n,'var(--t2)',show?unit*n:'?');
+    const arc=(a,b,y,up,lab)=>{const x1=X(a),x2=X(b),mx=(x1+x2)/2,h=up?-38:38;return `<path d="M${x1} ${y} Q${mx} ${y+h} ${x2} ${y}" style="fill:none;stroke:var(--muted);stroke-width:1.6" marker-end="url(#dar)"/>`+T(mx,y+h*0.62+(up?-6:14),lab,'fill:var(--ink);font-size:15px;font-weight:700');};
+    g+=arc(p.k,1,yt-30,true,'÷'+p.k)+arc(p.k,1,yb+40,false,'÷'+p.k);
+    if(n>1) { g+=arc(1,n,yt-30,true,'×'+n)+arc(1,n,yb+40,false,'×'+n); }
+    $('d-stage').innerHTML = svgWrap(760,300,'Двойная числовая прямая',g);
+    $('d-formula').innerHTML =
+      `<div class="row"><span class="tag">Шаг 1: сколько на одну</span><span>${p.P} : ${p.k} = <b class="ok">${unit} ${p.u}</b></span></div>`+
+      `<div class="row"><span class="tag">Шаг 2: сколько на ${n}</span><span>${unit} · ${n} = <b>${show? unit*n+' '+p.u : '?'}</b></span></div>`;
+  }
+  linkSlider('d-n', drawDNL);
+  $('d-show').addEventListener('click',()=>{ const b=$('d-show'); b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); drawDNL(); });
+  redraw[1]=drawDNL;
+
+  /* ---------- 3. Найди x ---------- */
+  const X3=[
+    {t:'За 6 ч поезд прошёл 480 км. Сколько он пройдёт за 2 ч с той же скоростью?', h1:'Время, ч', h2:'Путь, км', a:6, b:480, c:2},
+    {t:'4 тетради стоят 60 ₽. Сколько стоят 10 таких тетрадей?', h1:'Тетради, шт', h2:'Стоимость, ₽', a:4, b:60, c:10},
+    {t:'3 кг конфет стоят 210 ₽. Сколько стоят 7 кг?', h1:'Масса, кг', h2:'Стоимость, ₽', a:3, b:210, c:7}
+  ];
+  let xp=0, way=-1;
+  chips($('x-presets'), ['Поезд','Тетради','Конфеты'], i=>{ xp=i; drawX(); }, 0);
+  chips($('x-ways'), ['Во сколько раз','Через единицу','Крест'], i=>{ way=i; drawX(); }, -1);
+  function factor(a,c){
+    if(c%a===0) return {txt:'×'+(c/a), ok:true};
+    if(a%c===0) return {txt:'÷'+(a/c), ok:true};
+    const r=c/a; if(Math.abs(r*100-Math.round(r*100))<1e-9) return {txt:'×'+fmt(r), ok:true};
+    return {txt:`×${c}/${a}`, ok:false};
+  }
+  function drawX(){
+    const p=X3[xp], x=p.b*p.c/p.a, unit=p.b/p.a;
+    $('x-text').textContent=p.t;
+    const c1=250, c2=510, W=200;
+    const rowY = way===1 ? [130,210,290] : [130,250];
+    const cell=(cx,y,txt,col,bold)=>`<rect x="${cx-W/2}" y="${y-28}" width="${W}" height="50" rx="8" style="fill:${col?col:'var(--surface)'};fill-opacity:${col?0.16:1};stroke:${col?col:'var(--line)'};stroke-width:1.6"/>`+T(cx,y+5,txt,`fill:var(--ink);font-size:22px;font-weight:${bold?700:500}`);
+    let g='<defs><marker id="xar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--accent)"/></marker></defs>';
+    g+=T(c1,70,p.h1,'fill:var(--muted);font-size:16px;font-weight:600')+T(c2,70,p.h2,'fill:var(--muted);font-size:16px;font-weight:600');
+    const last=rowY[rowY.length-1];
+    g+=cell(c1,rowY[0],p.a,'var(--t1)',true)+cell(c2,rowY[0],p.b,'var(--t1)',true);
+    if(way===1) g+=cell(c1,rowY[1],1,'var(--good)',true)+cell(c2,rowY[1],unit,'var(--good)',true);
+    g+=cell(c1,last,p.c,'var(--t2)',true)+cell(c2,last,way>=0?x:'x','var(--t2)',true);
+    const varr=(cx,y1,y2,lab)=>`<path d="M${cx+W/2+14} ${y1} C${cx+W/2+50} ${y1} ${cx+W/2+50} ${y2} ${cx+W/2+16} ${y2}" style="fill:none;stroke:var(--accent);stroke-width:2.2" marker-end="url(#xar)"/>`+T(cx+W/2+58,(y1+y2)/2+6,lab,'anchor;fill:var(--accent);font-size:18px;font-weight:700');
+    if(way===0){ const f=factor(p.a,p.c); g+=varr(c1,rowY[0],last,f.txt)+varr(c2,rowY[0],last,f.txt); }
+    if(way===1){ g+=varr(c1,rowY[0],rowY[1],'÷'+p.a)+varr(c2,rowY[0],rowY[1],'÷'+p.a)+varr(c1,rowY[1],rowY[2],'×'+p.c)+varr(c2,rowY[1],rowY[2],'×'+p.c); }
+    if(way===2){
+      g+=`<line x1="${c1+60}" y1="${rowY[0]+16}" x2="${c2-60}" y2="${last-18}" style="stroke:var(--accent);stroke-width:2.4"/>`;
+      g+=`<line x1="${c2-60}" y1="${rowY[0]+16}" x2="${c1+60}" y2="${last-18}" style="stroke:var(--t3);stroke-width:2.4"/>`;
+    }
+    $('x-stage').innerHTML = svgWrap(760,last+50,'Таблица пропорции',g);
+    let f='';
+    if(way<0) f=`<div class="row"><span class="tag">Выбери способ</span><span>Сначала прикинь: ответ будет больше ${p.b} или меньше?</span></div>`;
+    if(way===0){ const fc=factor(p.a,p.c); f = fc.ok
+      ? `<div class="row"><span class="tag">${p.h1.split(',')[0]} изменилось в</span><span>${p.a} → ${p.c}: ${fc.txt}</span></div><div class="row"><span class="tag">Значит и ${p.h2.split(',')[0].toLowerCase()}</span><span>${p.b} ${fc.txt} = <b>${x}</b></span></div>`
+      : `<div class="row"><span class="tag">${p.a} → ${p.c}</span><span>в ${p.c}/${p.a} раза: <span class="no">неудобное число</span></span></div><div class="row"><span class="tag">Совет</span><span>для таких чисел удобнее «через единицу»</span></div>`; }
+    if(way===1) f=`<div class="row"><span class="tag">На единицу</span><span>${p.b} : ${p.a} = <b class="ok">${unit}</b></span></div><div class="row"><span class="tag">На ${p.c}</span><span>${unit} · ${p.c} = <b>${x}</b></span></div>`;
+    if(way===2) f=`<div class="row"><span class="tag">Основное свойство пропорции</span><span><span class="c1">${p.a} · x</span> = <span class="c3">${p.b} · ${p.c}</span></span></div><div class="row"><span class="tag">Отсюда</span><span>x = ${p.b} · ${p.c} : ${p.a} = <b>${x}</b></span></div><div class="row"><span class="tag">Это сокращённая запись</span><span>способа «через единицу»: ${p.b} : ${p.a} · ${p.c}</span></div>`;
+    $('x-formula').innerHTML=f;
+  }
+  redraw[2]=drawX;
+
+  /* ---------- 4. Прямая / обратная ---------- */
+  const V=[10,12,15,20,24,30,40,60];
+  let rm=0;
+  chips($('r-modes'), ['Яблоки: 40 ₽ за кг','Дорога: 120 км'], i=>{ rm=i; const el=$('r-v');
+    if(i===0){ el.min=1; el.max=10; el.value=3; delete el.dataset.labels; $('r-label').textContent='Масса, кг'; $('r-v-out').textContent='3'; }
+    else { el.min=0; el.max=V.length-1; el.value=1; el.dataset.labels=V.join(','); $('r-label').textContent='Скорость, км/ч'; $('r-v-out').textContent=V[1]; }
+    drawRect(); }, 0);
+  function drawRect(){
+    const raw=+$('r-v').value;
+    let g='', x0=90, base=300, w, h, f, text, ask;
+    if(rm===0){
+      const m=raw, price=40, cost=m*price; w=m*58; h=price*4;
+      text='Цена постоянная: 40 ₽ за 1 кг. Меняем массу.';
+      ask='<b>Вопрос:</b> масса стала в 2 раза больше. Что стало со стоимостью? Какая сторона прямоугольника не меняется?';
+      for(let i=1;i<m;i++) g+=`<line x1="${x0+i*58}" y1="${base-h}" x2="${x0+i*58}" y2="${base}" style="stroke:var(--t1);stroke-opacity:.35"/>`;
+      g=`<rect x="${x0}" y="${base-h}" width="${w}" height="${h}" style="fill:var(--t1);fill-opacity:.16;stroke:var(--t1);stroke-width:2.2"/>`+g;
+      g+=T(x0-14,base-h/2+6,'40 ₽','anchor;fill:var(--ink);font-size:18px;font-weight:700;text-anchor:end');
+      g+=T(x0+w/2,base+30,`${m} кг`,'fill:var(--ink);font-size:19px;font-weight:700');
+      g+=T(x0+w/2,base-h/2+8,`${cost} ₽`,'fill:var(--ink);font-size:22px;font-weight:700;paint-order:stroke;stroke:var(--surface);stroke-width:5px');
+      const m2=m*2<=10?m*2:null;
+      f=`<div class="row"><span class="tag">Стоимость = цена · масса</span><span>40 · ${m} = <b>${cost} ₽</b></span></div>`+
+        (m2?`<div class="row"><span class="tag">Масса ×2</span><span>40 · ${m2} = ${40*m2} ₽ → стоимость тоже <b>×2</b></span></div>`:'')+
+        `<div class="row"><span class="tag">Вывод</span><span class="ok">одна сторона постоянна → прямая пропорциональность</span></div>`;
+    } else {
+      const v=V[raw], t=120/v; w=t*58; h=v*4;
+      text='Путь постоянный: 120 км. Меняем скорость, смотрим на время.';
+      ask='<b>Вопрос:</b> скорость стала в 2 раза больше. Что стало со временем? Что у прямоугольника не меняется?';
+      g+=`<rect x="${x0}" y="${base-h}" width="${w}" height="${h}" style="fill:var(--t2);fill-opacity:.18;stroke:var(--t2);stroke-width:2.2"/>`;
+      g+=T(x0-14,base-h/2+6,`${v} км/ч`,'anchor;fill:var(--ink);font-size:17px;font-weight:700;text-anchor:end');
+      g+=T(x0+w/2,base+30,`${fmt(t)} ч`,'fill:var(--ink);font-size:19px;font-weight:700');
+      g+=T(x0+w/2,base-h/2+8,'120 км','fill:var(--ink);font-size:20px;font-weight:700;paint-order:stroke;stroke:var(--surface);stroke-width:5px');
+      const v2 = V.includes(v*2) ? v*2 : null;
+      f=`<div class="row"><span class="tag">Время = путь : скорость</span><span>120 : ${v} = <b>${fmt(t)} ч</b></span></div>`+
+        (v2?`<div class="row"><span class="tag">Скорость ×2</span><span>120 : ${v2} = ${fmt(120/v2)} ч → время <b>÷2</b></span></div>`:'')+
+        `<div class="row"><span class="tag">Вывод</span><span class="ok">площадь постоянна → обратная пропорциональность</span></div>`;
+    }
+    g+=`<line x1="${x0}" y1="${base}" x2="${x0+640}" y2="${base}" style="stroke:var(--muted)"/><line x1="${x0}" y1="${base}" x2="${x0}" y2="40" style="stroke:var(--muted)"/>`;
+    $('r-text').textContent=text; $('r-ask').innerHTML=ask;
+    $('r-stage').innerHTML=svgWrap(760,345,'Прямоугольник: произведение двух величин',g);
+    $('r-formula').innerHTML=f;
+  }
+  linkSlider('r-v', drawRect);
+  redraw[3]=drawRect;
+
+  /* ---------- 5. Ловушки ---------- */
+  const CARDS=[
+    {q:'3 тетради стоят 45 ₽. Сколько стоят 6 таких тетрадей?', a:['45 ₽','90 ₽','48 ₽'], r:1, e:'Тетрадей стало в 2 раза больше, значит и стоимость ×2. Это прямая пропорциональность.'},
+    {q:'Рост Короткого равен 4 большим скрепкам или 6 маленьким. Рост Высокого равен 6 большим скрепкам. Сколько это маленьких скрепок?', a:['8','9','12'], r:1, e:'Ловушка «на сколько». 6 − 4 = 2, и хочется ответить 8. Но маленьких скрепок всегда в 6 : 4 = 1,5 раза больше, чем больших, значит 6 · 1,5 = 9.'},
+    {q:'4 рабочих строят забор за 6 дней. За сколько дней построят такой же забор 8 рабочих?', a:['12 дней','3 дня','6 дней'], r:1, e:'Рабочих в 2 раза больше, значит времени нужно в 2 раза меньше. Это обратная пропорциональность.'},
+    {q:'Один мальчик пробегает 100 м за 15 секунд. За сколько секунд пробегут 100 м трое мальчиков, бегущих рядом?', a:['5 с','45 с','15 с'], r:2, e:'Это не пропорция! Каждый бежит сам, вместе они не быстрее. Ответ: те же 15 секунд.'},
+    {q:'Маше 6 лет, её брату 2 года. Сколько лет будет брату, когда Маше исполнится 12?', a:['4 года','8 лет','6 лет'], r:1, e:'Не пропорция: возраст растёт у обоих на одно и то же число лет. Разница всегда 4 года, значит брату будет 8.'},
+    {q:'Сторону квадрата увеличили в 2 раза. Во сколько раз увеличилась его площадь?', a:['в 2 раза','в 4 раза','в 8 раз'], r:1, e:'Площадь не пропорциональна стороне. Из квадрата 2×2 получается 4×4: площадь была 4, стала 16, то есть в 4 раза больше. Нарисуй и проверь.'},
+    {q:'3 полотенца на верёвке высыхают за 2 часа. За сколько часов высохнут 6 полотенец?', a:['4 часа','1 час','2 часа'], r:2, e:'Не пропорция: полотенца сохнут одновременно. 6 полотенец тоже высохнут за 2 часа, если хватит места на верёвке.'}
+  ];
+  let ci=0, right=0, answered=new Set();
+  function drawCard(){
+    const c=CARDS[ci];
+    $('c-card').innerHTML=`<div class="qnum">Карточка ${ci+1} из ${CARDS.length}</div><div class="qtext">${c.q}</div>`;
+    $('c-score').textContent=`Верно: ${right} из ${answered.size}`;
+    const box=$('c-answers'); box.innerHTML='';
+    c.a.forEach((txt,i)=>{ const b=document.createElement('button'); b.type='button'; b.textContent=txt;
+      b.addEventListener('click',()=>{ if(answered.has(ci)) return; answered.add(ci); if(i===c.r) right++;
+        [...box.children].forEach((bb,j)=>{ bb.disabled=true; if(j===c.r) bb.classList.add('right'); else if(j===i) bb.classList.add('wrong'); });
+        $('c-feedback').innerHTML=`<div class="row"><span class="${i===c.r?'ok':'no'}">${i===c.r?'Верно!':'Не совсем.'}</span><span>${c.e}</span></div>`;
+        $('c-score').textContent=`Верно: ${right} из ${answered.size}`; });
+      box.appendChild(b); });
+    $('c-feedback').innerHTML='<div class="row"><span class="tag">Подсказка</span><span>Спроси себя: если одно станет в 2 раза больше, что будет со вторым?</span></div>';
+    $('c-next').textContent = ci===CARDS.length-1 ? 'Начать карточки заново ↺' : 'Следующая карточка →';
+  }
+  $('c-next').addEventListener('click',()=>{ if(ci===CARDS.length-1){ ci=0; right=0; answered=new Set(); } else ci++; drawCard(); });
+  redraw[4]=drawCard;
+
+  /* ---------- навигация ---------- */
+  const screens=[...document.querySelectorAll('.screen')], tabs=[...document.querySelectorAll('.steps button')], N=screens.length, dots=$('dots');
+  for(let i=0;i<N;i++) dots.appendChild(document.createElement('i'));
+  const seen=new Set(); let cur=0;
+  function go(i,push){
+    cur=(i+N)%N; seen.add(cur);
+    screens.forEach((s,j)=>s.classList.toggle('active', j===cur));
+    tabs.forEach((t,j)=>{ t.setAttribute('aria-selected', j===cur?'true':'false'); t.classList.toggle('done', seen.has(j)&&j!==cur); });
+    [...dots.children].forEach((d,j)=>d.classList.toggle('on', j===cur));
+    $('where-n').textContent=`Задание ${cur+1} из ${N}`;
+    $('prev').disabled=cur===0;
+    $('next').textContent= cur===N-1 ? 'К началу ↺' : 'Дальше →';
+    redraw[cur]();
+    tabs[cur].scrollIntoView({block:'nearest',inline:'nearest'});
+    if(push!==false){ try{ history.replaceState(null,'','#'+(cur+1)); }catch(e){} }
+  }
+  tabs.forEach((t,i)=>t.addEventListener('click',()=>go(i)));
+  $('prev').addEventListener('click',()=>go(cur-1));
+  $('next').addEventListener('click',()=>go(cur+1));
+  document.addEventListener('keydown',e=>{ if(e.target&&e.target.type==='range') return; if(e.key==='ArrowRight') go(cur+1); if(e.key==='ArrowLeft'&&cur>0) go(cur-1); });
+  document.querySelectorAll('.stage-card').forEach(card=>{
+    let sx=0,sy=0,t=0;
+    card.addEventListener('touchstart',e=>{const p=e.touches[0];sx=p.clientX;sy=p.clientY;t=Date.now();},{passive:true});
+    card.addEventListener('touchend',e=>{const p=e.changedTouches[0],dx=p.clientX-sx,dy=p.clientY-sy; if(Math.abs(dx)>70&&Math.abs(dx)>1.5*Math.abs(dy)&&Date.now()-t<700){ if(dx<0) go(cur+1); else if(cur>0) go(cur-1);} },{passive:true});
+  });
+  window.addEventListener('hashchange',()=>{ const n=parseInt(location.hash.slice(1),10); if(n>=1&&n<=N&&n-1!==cur) go(n-1,false); });
+  const start=parseInt(location.hash.slice(1),10);
+  go(start>=1&&start<=N?start-1:0,false);
+})();
+</script>
+</body>
+</html>

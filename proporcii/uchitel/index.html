@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Пропорции: карта темы для учителя</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: одна колонка для чтения ~70 знаков; таблицы и рисунки во всю ширину колонки с горизонтальной прокруткой. */
+:root{--bg:#f4f6fa;--surface:#fff;--ink:#1b2333;--muted:#5c6577;--line:#d9dee8;--accent:#2c56d8;--chip:#e8edf8;--barc:#c3c5b8;
+--display:"Unbounded","Golos Text",system-ui,sans-serif;--body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10141b;--surface:#1a202b;--ink:#e7ebf3;--muted:#9aa3b5;--line:#2e3646;--accent:#7b9cff;--chip:#232c3c;--barc:#4a4f5c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10141b;--surface:#1a202b;--ink:#e7ebf3;--muted:#9aa3b5;--line:#2e3646;--accent:#7b9cff;--chip:#232c3c;--barc:#4a4f5c;color-scheme:dark}
+*{box-sizing:border-box} html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.6}
+.wrap{max-width:820px;margin:0 auto;padding:36px 22px 72px}
+header{margin-bottom:28px} .kicker{font-size:14px;color:var(--muted);margin:0 0 10px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(26px,4vw,36px);line-height:1.2;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:500;font-size:clamp(20px,2.6vw,25px);line-height:1.25;margin:48px 0 12px;text-wrap:balance;padding-top:20px;border-top:1px solid var(--line)}
+h3{font-size:19px;margin:28px 0 8px}
+p,li{max-width:70ch} a{color:var(--accent)}
+ol,ul{padding-left:24px} li{margin:5px 0}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 18px;font-size:15.5px}
+.toc ol{margin:6px 0 0;columns:2;column-gap:28px} .toc li{margin:2px 0;break-inside:avoid}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0}
+table{border-collapse:collapse;min-width:640px;width:100%;font-size:15.5px;background:var(--surface);border-radius:10px;overflow:hidden}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-size:13px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);background:var(--chip)}
+pre{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;white-space:pre-wrap;font-size:14.5px;line-height:1.5}
+code{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+.fig{margin:22px 0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 16px 10px}
+.fig figcaption b{display:block;font-size:17px} .fig figcaption span{color:var(--muted);font-size:15px}
+.fig .scroll{margin:8px 0 0} .fig svg{display:block;width:100%;min-width:600px;height:auto}
+.src{font-size:13px;color:var(--muted);margin:6px 0 0}
+svg .t{fill:var(--ink);font:13px var(--body)} svg .q{fill:var(--muted);font:12.5px var(--body)} svg .b{font-weight:600} svg .s{font-size:11.5px}
+svg .grid{stroke:var(--line)} svg .bar{fill:var(--barc)} svg .acc{fill:var(--accent)}
+svg .box,svg .box2{fill:none;stroke:var(--muted);stroke-width:1.25} svg .box2{fill:var(--surface)}
+svg .dial{fill:var(--accent);fill-opacity:.1;stroke:var(--accent);stroke-width:2} svg .band{fill:var(--chip);stroke:var(--line)}
+svg .ln{fill:none;stroke:var(--muted);stroke-width:1.25} svg .arr{fill:var(--muted)}
+.note{font-size:14px;color:var(--muted);border-top:1px solid var(--line);margin-top:48px;padding-top:14px}
+@media (max-width:560px){body{font-size:17px}.toc ol{columns:1}}
+.lead{font-size:19px;color:var(--ink);max-width:70ch}.cta{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:12px 18px;border-radius:12px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600}.back{display:inline-block;margin-bottom:18px;color:var(--muted);text-decoration:none;font-size:15px}</style></head><body><div class="wrap">
+<a class="back" href="../../">← Все темы</a>
+<header><p class="kicker">Для учителя · 6 класс</p><h1>Пропорции: карта темы для учителя</h1><p class="lead">На чём держать внимание ученика, в каком порядке вести тему, где он споткнётся и какие вопросы задавать. Модели для ученика лежат отдельно и открываются на планшете.</p><a class="cta" href="../">Открыть модели для ученика →</a></header>
+<nav class="toc" aria-label="Содержание"><b>Содержание</b><ol id="toc"></ol></nav>
+<h2>Главная идея одной фразой</h2>
+<p><strong>Пропорция: две величины меняются в одно и то же число раз.</strong> Основное свойство пропорции, «крест», масштаб и проценты вытекают из этой одной мысли. Если ученик её понял, правила он может вывести сам. Если не понял, он заучит «крест» и будет применять его где попало.</p>
+<h2>Пять ключевых моментов: на чём держать внимание ученика</h2>
+<ol>
+<li><strong>«Во сколько раз», а не «на сколько».</strong> Это главный поворот темы. До 6 класса ребёнок сравнивал в основном разностью («на сколько больше»), а теперь нужно сравнивать отношением. Неуместное сложение исследователи называют главным источником ошибок в задачах на пропорции. Проверка: задача про Короткого и Высокого (карточка 2 в моделях).</li>
+<li><strong>«Сколько на одну».</strong> Единичная величина (цена одной тетради, скорость за час) — самый надёжный способ решения и мост ко всем остальным. Ученик, который умеет «дойти до единицы», решит любую задачу на прямую пропорциональность без формул.</li>
+<li><strong>Сначала таблица и двойная прямая, потом «крест».</strong> Модели показывают, почему ответ такой. Крест — это сокращённая запись способа «через единицу», и вводить его стоит в конце, когда числа становятся неудобными. Если дать крест сразу, ученик быстро освоит процедуру, но перестанет понимать, что и зачем он перемножает.</li>
+<li><strong>Прямая и обратная — это одна картинка.</strong> Произведение двух величин удобно показывать прямоугольником. Если одна сторона постоянна, зависимость прямая; если постоянна площадь, обратная. Такая картинка не даёт заучить ложное правило «одна растёт, другая падает — значит обратная».</li>
+<li><strong>Не всё пропорционально.</strong> В каждом уроке нужна хотя бы одна задача, где пропорция не работает: сушка белья, бег вместе, возраст, площадь квадрата. Склонность видеть пропорцию везде («иллюзия линейности») во многом порождается самим обучением, когда ученик решает только задачи, где пропорция есть.</li>
+</ol>
+<h2>Порядок уроков</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Урок</th>
+<th>Что делаем</th>
+<th>Модель на планшете</th>
+<th>Ученик должен уметь сказать</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Отношение</td>
+<td>Рецепт краски, компот, смесь. Сравниваем «в разы»</td>
+<td>1. Краски</td>
+<td>«Цвет тот же, потому что обеих красок взяли в 2 раза больше»</td>
+</tr>
+<tr>
+<td>2. Равные отношения</td>
+<td>Таблица отношений, двойная прямая, единичная величина</td>
+<td>2. Цена за 1</td>
+<td>«Сначала нахожу, сколько на одну»</td>
+</tr>
+<tr>
+<td>3. Пропорция</td>
+<td>Найти x тремя способами, основное свойство как следствие</td>
+<td>3. Найди x</td>
+<td>«Крест — это то же самое, что через единицу, только короче»</td>
+</tr>
+<tr>
+<td>4. Прямая и обратная</td>
+<td>Цена и масса, скорость и время, рабочие и дни</td>
+<td>4. Прямая/обратная</td>
+<td>«Здесь постоянна площадь, значит зависимость обратная»</td>
+</tr>
+<tr>
+<td>5. Ловушки и масштаб</td>
+<td>Пропорция или нет? Масштаб карты</td>
+<td>5. Ловушки</td>
+<td>«Сначала проверю, правда ли тут пропорция»</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Типичные ошибки и что за ними стоит</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Как выглядит</th>
+<th>Что за ней</th>
+<th>Что делать</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Сложение вместо умножения</td>
+<td>Короткий: 4 большие = 6 маленьких; Высокий: 6 больших → «8 маленьких» (верно 9)</td>
+<td>Ученик сравнивает разностью, а не в разы</td>
+<td>Краски: «+2 к каждой» меняет цвет, «×2» не меняет. Дать ученику самому увидеть, что его способ не работает</td>
+</tr>
+<tr>
+<td>Доля вместо отношения</td>
+<td>Рецепт 2 : 3, «синей краски 2/3» (верно 2/5)</td>
+<td>В отношении целое — это сумма частей, в дроби — знаменатель</td>
+<td>Рисовать банки: всего 5, из них синих 2</td>
+</tr>
+<tr>
+<td>Пропорция везде</td>
+<td>3 полотенца сохнут 2 ч → «6 полотенец сохнут 4 ч»</td>
+<td>Решал только задачи, где пропорция есть</td>
+<td>Ловушки в каждом уроке; вопрос «а правда ли?» перед счётом</td>
+</tr>
+<tr>
+<td>Обратная решается как прямая</td>
+<td>4 рабочих за 6 дней → «8 рабочих за 12 дней»</td>
+<td>Шаблон «больше → больше»</td>
+<td>Прямоугольник с постоянной площадью; стрелки в таблице</td>
+</tr>
+<tr>
+<td>Крест «не туда»</td>
+<td>Пропорция составлена со смешанными величинами: часы против километров</td>
+<td>Крест выучен как ритуал, без таблицы</td>
+<td>Сначала таблица с подписанными столбцами, крест только по ней</td>
+</tr>
+<tr>
+<td>Площадь «в 2 раза»</td>
+<td>Сторону ×2 → площадь «×2»</td>
+<td>Иллюзия линейности (особенно в геометрии)</td>
+<td>Нарисовать квадрат 2×2 и 4×4 и пересчитать клетки</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Вопросы ученику, которые держат фокус</h2>
+<ul>
+<li>«Во сколько раз больше? А на сколько? Что из этого важно здесь?»</li>
+<li>«Сколько приходится на одну?»</li>
+<li>«Если удвоить первое, что станет со вторым?»</li>
+<li>«Изменится ли цвет (вкус, скорость), если…?»</li>
+<li>«Это правда пропорция? Как ты это проверил?»</li>
+<li>«Какой способ ты выберешь для этих чисел и почему?»</li>
+</ul>
+<p>Это вопросы-«фокус», а не «воронка»: на них нельзя ответить одним словом, их нельзя угадать. После вопроса выдержите паузу 3 секунды.</p>
+<h2>Диагностика за 5 минут перед темой</h2>
+<p>Три задачи на листочке, без подсказок:</p>
+<ol>
+<li>Короткий и Высокий (скрепки): ответ 8 означает сложение вместо умножения. Начинайте с красок и подолгу оставайтесь на «во сколько раз».</li>
+<li>«3 полотенца сохнут 2 часа, за сколько высохнут 6?» Ответ 4 означает, что ученик видит пропорцию везде. С первого урока давайте ловушки.</li>
+<li>«В компоте 2 стакана сока и 3 стакана воды. Какая часть компота — сок?» Ответ 2/3 означает, что ученик путает отношение и долю. Рисуйте части.</li>
+</ol>
+<h2>Проверка на выходе с урока</h2>
+<p>Одна задача на 2 минуты в конце: «5 карандашей стоят 60 ₽. Сколько стоят 8? Реши двумя способами». Если ученик решил хотя бы одним способом и смог объяснить его словами, тема урока усвоена.</p>
+<h2>Правила, которые «истекают»</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Как говорят</th>
+<th>Где ломается</th>
+<th>Лучше говорить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>«Перемножаем крест-накрест» (как первое правило)</td>
+<td>Ученик составляет пропорцию из несоответствующих величин и перемножает</td>
+<td>«Крест — короткая запись способа через единицу»</td>
+</tr>
+<tr>
+<td>«Больше — значит умножай»</td>
+<td>Обратная пропорциональность, задачи на деление</td>
+<td>«Нарисуй таблицу и спроси, во сколько раз»</td>
+</tr>
+<tr>
+<td>«Одна растёт, другая уменьшается — значит обратная»</td>
+<td>Остаток пути уменьшается со временем, но это не обратная пропорциональность</td>
+<td>«Обратная — когда постоянно произведение»</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Как сделать такую карту для следующей темы</h2>
+<p>Карта собирается по одному и тому же шаблону. Это и есть ваша «наработка»: через год таких карт будет 30, и это готовая методичка школы.</p>
+<ol>
+<li>Главная идея одной фразой.</li>
+<li>3–5 ключевых моментов: на чём держать внимание.</li>
+<li>Порядок уроков и модель на каждый урок (предмет → картинка → символ).</li>
+<li>Типичные ошибки: как выглядит, что за ней стоит, что делать.</li>
+<li>Вопросы-фокус.</li>
+<li>Диагностика на входе (3 задачи) и проверка на выходе (1 задача).</li>
+<li>Правила, которые «истекают».</li>
+</ol>
+<p>Промпт для ИИ, чтобы получить черновик карты по любой теме:</p>
+<pre><code class="language-text">Ты опытный методист по математике. Составь карту темы «[тема]» для [класс] класса
+(учебник: [автор учебника]) для индивидуальных занятий.
+Структура:
+1) главная идея одной фразой;
+2) 3–5 ключевых моментов, на чём держать внимание ученика, с объяснением почему;
+3) порядок уроков и наглядная модель на каждый урок (предмет → картинка → символ);
+4) таблица типичных ошибок: как выглядит, что за ней стоит, что делать;
+5) 5–6 вопросов-«фокус» (не наводящих, на них нельзя ответить одним словом);
+6) диагностика на входе (3 задачи с разбором, что значит каждый неверный ответ)
+   и одна задача на выходе;
+7) правила-подсказки, которые «истекают» в старших классах, и как сказать лучше.
+Опирайся на исследования (укажи источники), а не на общие слова.
+Задачи давай с конкретными числами.
+</code></pre>
+<p>Черновик проверьте по своему опыту: ИИ даёт основу, а знание того, где спотыкаются именно ваши ученики, есть только у вас.</p>
+<h2>Источники</h2>
+<ul>
+<li><a href="https://unesdoc.unesco.org/ark:/48223/pf0000262676" target="_blank" rel="noopener">Van Dooren &amp; Vamvakoussi, Proportional reasoning (ЮНЕСКО, серия Educational Practices)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Proportional_reasoning" target="_blank" rel="noopener">Proportional reasoning, задача Karplus о Коротком и Высоком</a></li>
+<li><a href="https://emis.univie.ac.at/proceedings/PME28/PP/PP011_DeBock.pdf" target="_blank" rel="noopener">De Bock et al., The illusion of linearity: a literature review</a></li>
+<li><a href="https://dwwlibrary.wested.org/files/5404589.pdf" target="_blank" rel="noopener">WestEd: развивать пропорциональное мышление до креста</a></li>
+<li><a href="https://www.cambridgemaths.org/Images/espresso_36_developing_concepts_of_ratio.pdf" target="_blank" rel="noopener">Cambridge Mathematics: модели для отношений (таблицы, двойные прямые)</a></li>
+<li><a href="https://www.cambridgemaths.org/Images/espresso_28_proportional_reasoning.pdf" target="_blank" rel="noopener">Cambridge Mathematics: развитие пропорционального мышления</a></li>
+<li><a href="https://www.maths.tcd.ie/EMIS/proceedings/PME29/PME29RRPapers/PME29Vol4Norton.pdf" target="_blank" rel="noopener">Norton: отношение и доля, где целое — сумма частей</a></li>
+</ul>
+<p class="note">Карта составлена по исследованиям пропорционального мышления (список источников выше). Модели к ней: <a href="../">Пропорции на планшете</a>.</p>
+</div>
+<script>
+(function(){var t=document.getElementById('toc');document.querySelectorAll('h2').forEach(function(h,i){h.id='s'+(i+1);var li=document.createElement('li');var a=document.createElement('a');a.href='#s'+(i+1);a.textContent=h.textContent;li.appendChild(a);t.appendChild(li);});})();
+</script></body></html>
