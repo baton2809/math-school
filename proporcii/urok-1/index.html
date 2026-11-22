@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 1. Отношения и пропорции — план на 90 минут</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: одна колонка ~780px. Сверху «подготовка за 10 минут» и лента времени, ниже блоки урока карточками с бейджем времени. Печатается на A4. */
+:root{--bg:#f4f6fa;--surface:#fff;--ink:#1b2333;--muted:#5c6577;--line:#d9dee8;--accent:#2c56d8;--chip:#e8edf8;
+--k-check:#6b7a99;--k-explain:#2c56d8;--k-practice:#d9771c;--k-pause:#1f9a6e;--k-final:#8a4fd1;--good:#1f9a6e;--bad:#c9373b;--blue:#2563eb;--yellow:#eab308;
+--display:"Unbounded","Golos Text",system-ui,sans-serif;--body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10141b;--surface:#1a202b;--ink:#e7ebf3;--muted:#9aa3b5;--line:#2e3646;--accent:#7b9cff;--chip:#232c3c;
+--k-check:#9aa8c4;--k-explain:#7b9cff;--k-practice:#f2a352;--k-pause:#4fcf9d;--k-final:#b58cf0;--good:#4fcf9d;--bad:#ff6b6e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10141b;--surface:#1a202b;--ink:#e7ebf3;--muted:#9aa3b5;--line:#2e3646;--accent:#7b9cff;--chip:#232c3c;
+--k-check:#9aa8c4;--k-explain:#7b9cff;--k-practice:#f2a352;--k-pause:#4fcf9d;--k-final:#b58cf0;--good:#4fcf9d;--bad:#ff6b6e;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px 64px;display:grid;gap:22px}
+a{color:var(--accent)}
+.back{color:var(--muted);text-decoration:none;font-size:15px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.6vw,32px);line-height:1.2;margin:6px 0 6px;text-wrap:balance}
+.kicker{margin:0;color:var(--muted);font-size:14px}
+.lead{margin:0;color:var(--muted);max-width:68ch}
+h2{font-family:var(--display);font-weight:500;font-size:21px;margin:10px 0 0;text-wrap:balance}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.prep{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
+.prep h3{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.prep ol,.prep ul{margin:0;padding-left:20px}
+.prep li{margin:3px 0}
+.phrases li{font-weight:600}
+.goal{margin:0 0 12px;font-size:18px}
+.scroll{overflow-x:auto}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--body)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+table{border-collapse:collapse;width:100%;font-size:15px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.block{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--kc);border-radius:14px;padding:16px 20px;display:grid;gap:10px;break-inside:avoid}
+.bhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px}
+.time{font-variant-numeric:tabular-nums;font-weight:700;color:var(--kc);font-size:15px;white-space:nowrap}
+.dur{background:var(--kc);color:#fff;border-radius:999px;padding:1px 10px;font-size:13px;font-weight:700}
+:root[data-theme="dark"] .dur{color:#0e1320}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dur{color:#0e1320}}
+.bhead h3{margin:0;font-size:19px;flex:1 1 280px}
+.goalline{margin:0;color:var(--muted)}
+.say{margin:0;padding:10px 14px;background:var(--chip);border-radius:10px;display:grid;gap:4px}
+.say p{margin:0}
+.say p::before{content:"— ";color:var(--muted)}
+.lbl{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;margin:4px 0 0}
+.tasks{margin:0;padding-left:22px;display:grid;gap:6px}
+.ans{color:var(--good);font-weight:600;white-space:nowrap}
+.watch{margin:0;padding:8px 12px;border-left:3px solid var(--bad);background:color-mix(in srgb,var(--bad) 8%,transparent);border-radius:0 8px 8px 0;font-size:15.5px}
+.watch b{color:var(--bad)}
+.tab{font-size:15px;color:var(--muted)}
+figure{margin:4px 0 0}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:4px}
+.k-check{--kc:var(--k-check)}.k-explain{--kc:var(--k-explain)}.k-practice{--kc:var(--k-practice)}.k-pause{--kc:var(--k-pause)}.k-final{--kc:var(--k-final)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+summary{cursor:pointer;font-weight:600}
+pre{white-space:pre-wrap;font-size:14px;background:var(--chip);border-radius:10px;padding:12px}
+.note{font-size:14px;color:var(--muted)}
+@media (max-width:640px){.prep{grid-template-columns:1fr}.block{padding:14px}}
+@media print{body{background:#fff;font-size:12.5pt}.wrap{max-width:none;padding:0}.back,details{display:none}.card,.block{border-color:#bbb}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div>
+  <a class="back" href="../../">← Все темы</a> · <a class="back" href="../uchitel/">Карта темы</a> · <a class="back" href="../">Модели на планшете</a>
+  <p class="kicker" style="margin-top:14px">6 класс · после темы «Проценты» · 90 минут</p>
+  <h1>Урок 1. Отношения и пропорции</h1>
+  <p class="lead">План для подготовки за 10 минут: лента времени, что говорить, задачи с ответами и где ждать ошибку. Прямая и обратная пропорциональность — следующий урок; сегодня только замечаем, что «не всё пропорционально».</p>
+</div>
+
+<section class="card">
+  <p class="goal"><b>Цель урока:</b> ученик сравнивает величины «во сколько раз», находит «сколько на одну», решает пропорцию и понимает, что задачи на проценты из прошлой темы решаются той же таблицей.</p>
+  <div class="prep">
+    <div>
+      <h3>Подготовка за 10 минут</h3>
+      <ol>
+        <li>Пробежать ленту времени ниже (2 мин).</li>
+        <li>Распечатать или переписать диагностику: 3 задачи из блока 1.</li>
+        <li>Открыть на планшете <a href="../">модели «Пропорции»</a>, экраны 1, 2, 3, 5.</li>
+        <li>Кубики или карандаши двух цветов (5 синих, 5 жёлтых) для «рецепта».</li>
+        <li>Карточка самостоятельной работы (блок 8) и задача на выход (блок 9).</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Три фразы урока</h3>
+      <ul class="phrases">
+        <li>«Отношение показывает, во сколько раз одно больше другого».</li>
+        <li>«Сначала находим, сколько приходится на одну».</li>
+        <li>«Крест — короткая запись того же самого».</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<h2>Лента времени</h2>
+<section class="card">
+  <div class="scroll"><svg viewBox="0 0 760 118" role="img" aria-label="Лента урока на 90 минут">
+    <g id="tl"></g>
+  </svg></div>
+  <div class="legend"><span><i style="background:var(--k-check)"></i>проверка</span><span><i style="background:var(--k-explain)"></i>объяснение</span><span><i style="background:var(--k-practice)"></i>практика</span><span><i style="background:var(--k-pause)"></i>пауза</span><span><i style="background:var(--k-final)"></i>итог</span></div>
+  <div class="scroll" style="margin-top:10px"><table>
+    <thead><tr><th>Время</th><th>Блок</th><th>Планшет</th></tr></thead>
+    <tbody id="tlt"></tbody>
+  </table></div>
+</section>
+
+<!-- 1 -->
+<section class="block k-check">
+  <div class="bhead"><span class="time">0:00–0:07</span><span class="dur">7 мин</span><h3>1. Разминка и диагностика</h3></div>
+  <p class="goalline">Узнать до объяснения, кто сравнивает «на сколько» вместо «во сколько раз» и кто видит пропорцию везде.</p>
+  <div class="say"><p>Три задачи, решай как умеешь. Это не оценка, мне важно, как ты думаешь.</p></div>
+  <p class="lbl">Задачи (листок, без подсказок)</p>
+  <ol class="tasks">
+    <li>Рост Короткого: 4 большие скрепки, или 6 маленьких. Рост Высокого: 6 больших скрепок. Сколько это маленьких? <span class="ans">9</span></li>
+    <li>3 полотенца на верёвке сохнут 2 часа. За сколько высохнут 6 полотенец? <span class="ans">2 часа</span></li>
+    <li>В компоте 2 стакана сока и 3 стакана воды. Какую часть компота составляет сок? Сколько это процентов? <span class="ans">2/5 = 40%</span></li>
+  </ol>
+  <p class="watch"><b>Ответ 8</b> в первой задаче: сложение вместо умножения, держать дольше на блоке 2. <b>Ответ 4 часа</b>: «пропорция везде», ловушки обязательны. <b>Ответ 2/3</b>: путает отношение и долю.</p>
+</section>
+
+<!-- 2 -->
+<section class="block k-explain">
+  <div class="bhead"><span class="time">0:07–0:20</span><span class="dur">13 мин</span><h3>2. Отношение: «рецепт» и «во сколько раз»</h3></div>
+  <p class="goalline">Ввести отношение как частное и отличить его от доли.</p>
+  <div class="say">
+    <p>Смешиваем 2 банки синей краски и 3 банки жёлтой. Если взять 4 синих и 6 жёлтых, цвет будет тот же? А если 4 синих и 5 жёлтых?</p>
+    <p>Цвет зависит не от количества банок, а от того, во сколько раз жёлтой больше. Это и есть отношение.</p>
+    <p>Частное двух чисел называют отношением этих чисел. 3 : 2 = 1,5 — жёлтой в 1,5 раза больше.</p>
+    <p>Процент из прошлой темы — тоже отношение, только к 100.</p>
+  </div>
+  <figure><svg viewBox="0 0 760 150" role="img" aria-label="Рецепт краски 2 к 3 полосками">
+    <text x="0" y="34" style="font:600 15px var(--body);fill:var(--ink)">синяя</text>
+    <text x="0" y="84" style="font:600 15px var(--body);fill:var(--ink)">жёлтая</text>
+    <g style="stroke:var(--surface);stroke-width:3"><rect x="80" y="12" width="90" height="36" style="fill:var(--blue)"/><rect x="170" y="12" width="90" height="36" style="fill:var(--blue)"/>
+    <rect x="80" y="62" width="90" height="36" style="fill:var(--yellow)"/><rect x="170" y="62" width="90" height="36" style="fill:var(--yellow)"/><rect x="260" y="62" width="90" height="36" style="fill:var(--yellow)"/></g>
+    <text x="380" y="40" style="font:700 20px var(--body);fill:var(--ink)">отношение 2 : 3</text>
+    <text x="380" y="66" style="font:15px var(--body);fill:var(--muted)">синяя составляет 2/3 от жёлтой,</text>
+    <text x="380" y="86" style="font:15px var(--body);fill:var(--muted)">жёлтой в 3 : 2 = 1,5 раза больше</text>
+    <path d="M80 112v8h270v-8" style="fill:none;stroke:var(--muted);stroke-width:1.5"/>
+    <text x="215" y="140" text-anchor="middle" style="font:600 15px var(--body);fill:var(--ink)">всего 5 частей → доля синей 2/5 = 40%</text>
+  </svg><figcaption>Рис. 1. Отношение и доля: в отношении сравниваем части друг с другом, в доле — часть со всем целым.</figcaption></figure>
+  <p class="lbl">Задачи</p>
+  <ol class="tasks">
+    <li>Найдите отношение 12 к 4 и 4 к 12. Что показывает каждое? <span class="ans">3 (в 3 раза больше); 1/3 (составляет третью часть)</span></li>
+    <li>В классе 12 мальчиков и 18 девочек. Отношение мальчиков к девочкам? Какая часть класса — мальчики, сколько это процентов? <span class="ans">2 : 3; 2/5 = 40%</span></li>
+    <li>Найдите отношение 40 см к 2 м. <span class="ans">40 : 200 = 1 : 5</span></li>
+  </ol>
+  <p class="watch"><b>Ждите:</b> «40 : 2 = 20» в задаче 3. Правило: величины в отношении выражаем в одних единицах.</p>
+  <p class="tab">Планшет: <a href="../#1">экран 1 «Краски»</a>, кнопки «Удвоить» и «+2 к каждой».</p>
+</section>
+
+<!-- 3 -->
+<section class="block k-explain">
+  <div class="bhead"><span class="time">0:20–0:35</span><span class="dur">15 мин</span><h3>3. Равные отношения: таблица и «сколько на одну»</h3></div>
+  <p class="goalline">Научить находить единичную величину и заполнять таблицу отношений. Это основа всего урока.</p>
+  <div class="say">
+    <p>3 тетради стоят 45 ₽. Сколько стоит одна? А 6? А 10?</p>
+    <p>Смотри: количество умножили на 2 — и цена умножилась на 2. Во сколько раз изменилось одно, во столько же раз изменилось и другое.</p>
+    <p>Самый надёжный путь — дойти до одной, а потом умножить.</p>
+  </div>
+  <figure><svg viewBox="0 0 760 170" role="img" aria-label="Таблица отношений тетради и стоимость">
+    <g style="font:600 14px var(--body);fill:var(--muted)"><text x="0" y="62">Тетради, шт</text><text x="0" y="112">Стоимость, ₽</text></g>
+    <g id="rt"></g>
+  </svg><figcaption>Рис. 2. Таблица отношений: стрелки сверху и снизу всегда одинаковые. Зелёный столбец — «сколько на одну».</figcaption></figure>
+  <figure><svg viewBox="0 0 760 150" role="img" aria-label="Двойная числовая прямая: 4 кг — 360 рублей">
+    <g id="dnl"></g>
+  </svg><figcaption>Рис. 3. Двойная числовая прямая: 4 кг стоят 360 ₽, значит 1 кг стоит 90 ₽, а 7 кг стоят 630 ₽.</figcaption></figure>
+  <p class="lbl">Задачи</p>
+  <ol class="tasks">
+    <li>4 кг яблок стоят 360 ₽. Сколько стоят 7 кг? <span class="ans">90 · 7 = 630 ₽</span></li>
+    <li>Пешеход за 2 ч проходит 9 км. Заполните таблицу для 1, 4, 6 и 7 ч. <span class="ans">4,5; 18; 27; 31,5 км</span></li>
+    <li>На 4 порции блинов нужно 300 г муки. Сколько муки на 6 порций? <span class="ans">75 · 6 = 450 г</span></li>
+  </ol>
+  <p class="watch"><b>Ждите:</b> «на 2 порции больше, значит на 2 · ... больше» — счёт разностями. Верните к стрелкам: «во сколько раз?»</p>
+  <p class="tab">Планшет: <a href="../#2">экран 2 «Цена за 1»</a>.</p>
+</section>
+
+<!-- 4 -->
+<section class="block k-pause">
+  <div class="bhead"><span class="time">0:35–0:40</span><span class="dur">5 мин</span><h3>4. Пауза</h3></div>
+  <p class="goalline">Встать, вода, отвлечься. Можно устно: «Если 2 пирожка стоят 50 ₽, сколько стоят 10?» — 250 ₽.</p>
+</section>
+
+<!-- 5 -->
+<section class="block k-explain">
+  <div class="bhead"><span class="time">0:40–0:58</span><span class="dur">18 мин</span><h3>5. Пропорция и её основное свойство</h3></div>
+  <p class="goalline">Ввести пропорцию как равенство двух отношений. Основное свойство вывести, а не продиктовать; «крест» — последним.</p>
+  <div class="say">
+    <p>Равенство двух отношений называют пропорцией: 3 : 45 = 6 : 90.</p>
+    <p>Числа по краям — крайние члены, в середине — средние. Перемножь крайние и средние. Что заметил?</p>
+    <p>В верной пропорции произведение крайних членов равно произведению средних. Это и есть «крест», и он работает потому, что отношения равны.</p>
+    <p>Сначала решим задачу через единицу, потом крестом, и сравним: это одно и то же вычисление.</p>
+  </div>
+  <figure><svg viewBox="0 0 760 170" role="img" aria-label="Схема пропорции: крайние и средние члены">
+    <g style="font:700 34px var(--body);fill:var(--ink)" text-anchor="middle"><text x="250" y="100">a</text><text x="320" y="100">:</text><text x="390" y="100">b</text><text x="450" y="100">=</text><text x="510" y="100">c</text><text x="570" y="100">:</text><text x="640" y="100">d</text></g>
+    <path d="M250 62 C250 10 640 10 640 62" style="fill:none;stroke:var(--k-explain);stroke-width:2.4"/>
+    <text x="445" y="22" text-anchor="middle" style="font:600 15px var(--body);fill:var(--k-explain)">крайние члены</text>
+    <path d="M390 112 C390 150 510 150 510 112" style="fill:none;stroke:var(--k-practice);stroke-width:2.4"/>
+    <text x="450" y="166" text-anchor="middle" style="font:600 15px var(--body);fill:var(--k-practice)">средние члены</text>
+    <text x="40" y="100" style="font:700 22px var(--body);fill:var(--ink)">a · d = b · c</text>
+  </svg><figcaption>Рис. 4. Основное свойство пропорции: произведение крайних членов равно произведению средних.</figcaption></figure>
+  <p class="lbl">Задачи</p>
+  <ol class="tasks">
+    <li>Верна ли пропорция: 3 : 5 = 9 : 15? 2 : 7 = 6 : 20? <span class="ans">да (45 = 45); нет (40 ≠ 42)</span></li>
+    <li>Решите: x : 8 = 15 : 24. <span class="ans">x = 8 · 15 : 24 = 5</span></li>
+    <li>Решите: 1,2 : x = 3 : 2,5. <span class="ans">3x = 3, x = 1</span></li>
+    <li>За 6 ч поезд прошёл 480 км. Сколько он пройдёт за 2 ч? Решите тремя способами: «во сколько раз», через единицу, пропорцией. <span class="ans">160 км</span></li>
+    <li>3 кг конфет стоят 210 ₽. Сколько стоят 7 кг? Какой способ здесь удобнее? <span class="ans">490 ₽; через единицу (70 ₽ за кг), 7/3 — неудобно</span></li>
+  </ol>
+  <p class="watch"><b>Ждите:</b> пропорцию составили из несоответствующих величин (часы против километров «крест-накрест не туда»). Требование: сначала таблица с подписанными столбцами, потом пропорция по ней.</p>
+  <p class="tab">Планшет: <a href="../#3">экран 3 «Найди x»</a>, переключать три способа.</p>
+</section>
+
+<!-- 6 -->
+<section class="block k-practice">
+  <div class="bhead"><span class="time">0:58–1:10</span><span class="dur">12 мин</span><h3>6. Проценты через пропорцию — связка с прошлой темой</h3></div>
+  <p class="goalline">Показать, что три типа задач на проценты решаются одной таблицей. Это «вау-момент» урока: прошлая тема становится проще.</p>
+  <div class="say">
+    <p>Вы решали три разных типа задач на проценты. Сейчас это будет одна таблица, меняется только клетка, где x.</p>
+    <p>Всё число — это 100%. Записываем его в первую строку.</p>
+  </div>
+  <figure><div class="scroll"><table>
+    <thead><tr><th>Тип задачи</th><th>Число</th><th>Проценты</th><th>Решение</th></tr></thead>
+    <tbody>
+      <tr><td>Процент от числа: 25% от 360</td><td>360<br><b style="color:var(--k-practice)">x</b></td><td>100%<br>25%</td><td>x = 360 · 25 : 100 = <b>90</b></td></tr>
+      <tr><td>Число по проценту: 30% числа равны 45</td><td><b style="color:var(--k-practice)">x</b><br>45</td><td>100%<br>30%</td><td>x = 45 · 100 : 30 = <b>150</b></td></tr>
+      <tr><td>Сколько процентов: 18 от 72</td><td>72<br>18</td><td>100%<br><b style="color:var(--k-practice)">x</b></td><td>x = 18 · 100 : 72 = <b>25%</b></td></tr>
+    </tbody>
+  </table></div><figcaption>Рис. 5. Одна таблица «число — проценты» для всех трёх типов задач.</figcaption></figure>
+  <p class="lbl">Задачи</p>
+  <ol class="tasks">
+    <li>Найдите 15% от 240. <span class="ans">36</span></li>
+    <li>12% числа равны 18. Найдите число. <span class="ans">150</span></li>
+    <li>Цена 800 ₽ снизилась на 15%. Какая стала цена? <span class="ans">800 — 100%, x — 85% → 680 ₽</span></li>
+  </ol>
+  <p class="watch"><b>Ждите:</b> в задаче 3 ученик ставит в таблицу 15% и находит скидку, а не новую цену. Вопрос: «Сколько процентов осталось от цены?»</p>
+</section>
+
+<!-- 7 -->
+<section class="block k-practice">
+  <div class="bhead"><span class="time">1:10–1:20</span><span class="dur">10 мин</span><h3>7. Ловушки: это вообще пропорция?</h3></div>
+  <p class="goalline">Привить привычку проверять, правда ли перед тобой пропорция. Обратную пропорциональность не разбираем, только замечаем.</p>
+  <div class="say"><p>Перед тем как считать, спроси себя: если одно станет в 2 раза больше, что будет со вторым?</p></div>
+  <ol class="tasks">
+    <li>4 рабочих строят забор за 6 дней. За сколько дней его построят 8 рабочих? <span class="ans">3 дня — величины меняются в разные стороны, это следующий урок</span></li>
+    <li>Один мальчик пробегает 100 м за 15 с. За сколько пробегут трое, бегущих рядом? <span class="ans">15 с — не пропорция</span></li>
+    <li>Маше 6 лет, брату 2. Сколько будет брату, когда Маше исполнится 12? <span class="ans">8 — постоянна разность, а не отношение</span></li>
+    <li>Сторону квадрата увеличили в 2 раза. Во сколько раз увеличилась площадь? <span class="ans">в 4 раза</span></li>
+  </ol>
+  <p class="tab">Планшет: <a href="../#5">экран 5 «Ловушки»</a>, в нём 7 карточек со счётом.</p>
+</section>
+
+<!-- 8 -->
+<section class="block k-practice">
+  <div class="bhead"><span class="time">1:20–1:27</span><span class="dur">7 мин</span><h3>8. Самостоятельная работа: три уровня</h3></div>
+  <p class="goalline">Ученик решает молча, учитель только наблюдает и отмечает, где он запнулся.</p>
+  <ol class="tasks">
+    <li><b>А.</b> Решите пропорцию x : 12 = 5 : 4. <span class="ans">15</span></li>
+    <li><b>Б.</b> За 5 одинаковых тетрадей заплатили 75 ₽. Сколько стоят 8 таких тетрадей? <span class="ans">120 ₽</span></li>
+    <li><b>В.</b> Медь и олово входят в сплав в отношении 7 : 3. Сколько граммов меди в 250 г сплава? <span class="ans">250 : 10 · 7 = 175 г</span></li>
+  </ol>
+  <p class="watch"><b>В задаче В</b> типичная ошибка — 250 : 7 · 3. Подсказка через рисунок 1: «Сколько всего частей?»</p>
+</section>
+
+<!-- 9 -->
+<section class="block k-final">
+  <div class="bhead"><span class="time">1:27–1:30</span><span class="dur">3 мин</span><h3>9. Итог и проверка на выходе</h3></div>
+  <ol class="tasks">
+    <li>5 карандашей стоят 60 ₽. Сколько стоят 8? Двумя способами. <span class="ans">96 ₽</span></li>
+    <li>Одним предложением: что такое пропорция и когда её можно применять?</li>
+  </ol>
+  <p class="goalline">Если решил хотя бы одним способом и объяснил словами — урок достиг цели. Если нет, следующий урок начинаем с блока 3.</p>
+  <p class="lbl">Домашнее задание (по желанию)</p>
+  <ol class="tasks">
+    <li>Решите пропорцию 2,4 : 6 = x : 15. <span class="ans">6</span></li>
+    <li>На 3 одинаковые куртки ушло 7,5 м ткани. Сколько ткани нужно на 5 курток? <span class="ans">12,5 м</span></li>
+    <li>Придумайте задачу, которая похожа на пропорцию, но ею не является.</li>
+  </ol>
+</section>
+
+<details>
+  <summary>Промпт, по которому собран этот план (для следующих тем)</summary>
+<pre>Ты опытный методист по математике. Составь план урока для учителя-профессионала,
+который подготовится по нему за 10 минут.
+
+Вводные: тема «[Отношения и пропорции]», [6] класс, учебник [Виленкин].
+Ученики только что прошли тему «[Проценты]», на неё нужно опереться.
+Длительность [90] минут, формат [индивидуально или мини-группа].
+Есть планшет с моделями: [ссылка и номера экранов].
+
+Нужно:
+1. «Подготовка за 10 минут»: цель урока, 3 главные фразы урока, что приготовить.
+2. Лента времени: блоки с минутами, сумма ровно [90].
+   Тип блока: проверка / объяснение / практика / пауза / итог.
+3. По каждому блоку: время и цель; как объяснять (2–4 реплики учителя,
+   а не пересказ учебника); задачи с конкретными числами и ответами;
+   какую ошибку ждать и что делать; какой экран планшета открыть.
+4. Порядок: диагностика (выявить сложение вместо умножения и «пропорцию везде»)
+   → отношение → равные отношения и «сколько на одну»
+   → пропорция и её основное свойство как следствие, «крест» в конце
+   → связка с прошлой темой → ловушки «это не пропорция»
+   → самостоятельная работа трёх уровней → итог с проверкой на выходе.
+5. Рисунки, как в учебнике: полоски (модель «рецепт»), таблица отношений
+   со стрелками, двойная числовая прямая, схема пропорции с крайними
+   и средними членами, таблица «величина — проценты».
+6. Терминология и определения как в учебнике. Арифметику проверь;
+   у задач на подбор чисел ответы должны выходить ровно.
+7. Коротко и по делу: учитель профессионал и очень дотошен.</pre>
+</details>
+
+<p class="note">Почему такой порядок, какие ошибки типичны и откуда это известно — в <a href="../uchitel/">карте темы «Пропорции»</a>.</p>
+</div>
+
+<script>
+(function(){
+  const B=[
+    ['Диагностика',0,7,'check',''],['Отношение',7,20,'explain','1'],['Таблица, «на одну»',20,35,'explain','2'],['Пауза',35,40,'pause',''],
+    ['Пропорция',40,58,'explain','3'],['Проценты',58,70,'practice',''],['Ловушки',70,80,'practice','5'],['Самост.',80,87,'practice',''],['Итог',87,90,'final','']];
+  const NAMES=['Разминка и диагностика','Отношение: «рецепт» и «во сколько раз»','Равные отношения: таблица и «сколько на одну»','Пауза','Пропорция и её основное свойство','Проценты через пропорцию','Ловушки: это вообще пропорция?','Самостоятельная работа','Итог и проверка на выходе'];
+  const X=m=>10+m*(740/90), hm=m=>`${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`;
+  let g='';
+  for(let t=0;t<=90;t+=10) g+=`<line x1="${X(t)}" x2="${X(t)}" y1="18" y2="76" style="stroke:var(--line)"/><text x="${X(t)}" y="98" text-anchor="middle" style="font:12.5px var(--body);fill:var(--muted)">${t}</text>`;
+  B.forEach((b,i)=>{ const w=X(b[2])-X(b[1]); g+=`<rect x="${X(b[1])+1}" y="24" width="${w-2}" height="46" rx="5" style="fill:var(--k-${b[3]})"><title>${hm(b[1])}–${hm(b[2])}: ${NAMES[i]}</title></rect>`+
+     `<text x="${X(b[1])+w/2}" y="${w>40?44:52}" text-anchor="middle" style="font:700 15px var(--body);fill:#fff">${i+1}</text>`+
+     (w>60?`<text x="${X(b[1])+w/2}" y="62" text-anchor="middle" style="font:500 11.5px var(--body);fill:#fff">${b[2]-b[1]} мин</text>`:''); });
+  document.getElementById('tl').innerHTML=g;
+  document.getElementById('tlt').innerHTML=B.map((b,i)=>`<tr><td style="white-space:nowrap">${hm(b[1])}–${hm(b[2])} · <b>${b[2]-b[1]} мин</b></td><td>${i+1}. ${NAMES[i]}</td><td>${b[4]?`<a href="../#${b[4]}">экран ${b[4]}</a>`:'—'}</td></tr>`).join('');
+
+  // таблица отношений
+  const q=[1,2,3,6,10], c=q.map(n=>n*15), x0=150, cw=118;
+  let r='';
+  q.forEach((n,i)=>{ const x=x0+i*cw, unit=n===1;
+    r+=`<rect x="${x}" y="38" width="${cw-8}" height="38" rx="6" style="fill:${unit?'var(--k-pause)':'var(--chip)'};fill-opacity:${unit?0.18:1};stroke:${unit?'var(--k-pause)':'var(--line)'}"/>`+
+       `<rect x="${x}" y="88" width="${cw-8}" height="38" rx="6" style="fill:${unit?'var(--k-pause)':'var(--chip)'};fill-opacity:${unit?0.18:1};stroke:${unit?'var(--k-pause)':'var(--line)'}"/>`+
+       `<text x="${x+(cw-8)/2}" y="64" text-anchor="middle" style="font:700 18px var(--body);fill:var(--ink)">${n}</text>`+
+       `<text x="${x+(cw-8)/2}" y="114" text-anchor="middle" style="font:700 18px var(--body);fill:var(--ink)">${c[i]}</text>`; });
+  const arr=(i,j,lab)=>{ const a=x0+i*cw+(cw-8)/2, b=x0+j*cw+(cw-8)/2, m=(a+b)/2;
+    return `<path d="M${a} 34 Q${m} 6 ${b-4} 32" style="fill:none;stroke:var(--k-explain);stroke-width:1.8"/><text x="${m}" y="16" text-anchor="middle" style="font:700 14px var(--body);fill:var(--k-explain)">${lab}</text>`+
+           `<path d="M${a} 130 Q${m} 158 ${b-4} 132" style="fill:none;stroke:var(--k-explain);stroke-width:1.8"/><text x="${m}" y="160" text-anchor="middle" style="font:700 14px var(--body);fill:var(--k-explain)">${lab}</text>`; };
+  r+=arr(2,0,'÷3')+arr(2,3,'×2');
+  document.getElementById('rt').innerHTML=r;
+
+  // двойная прямая
+  const DX=i=>150+i*65, yt=50, yb=112; let d='';
+  d+=`<text x="0" y="${yt+5}" style="font:600 14px var(--body);fill:var(--muted)">Масса, кг</text><text x="0" y="${yb+5}" style="font:600 14px var(--body);fill:var(--muted)">Стоимость, ₽</text>`;
+  d+=`<line x1="${DX(0)}" x2="${DX(9)}" y1="${yt}" y2="${yt}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${DX(0)}" x2="${DX(9)}" y1="${yb}" y2="${yb}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+  for(let i=0;i<=9;i++){ const key=[1,4,7].includes(i); d+=`<line x1="${DX(i)}" x2="${DX(i)}" y1="${yt-5}" y2="${yt+5}" style="stroke:var(--ink)"/><line x1="${DX(i)}" x2="${DX(i)}" y1="${yb-5}" y2="${yb+5}" style="stroke:var(--ink)"/>`+
+    `<text x="${DX(i)}" y="${yt-12}" text-anchor="middle" style="font:${key?700:400} ${key?16:12.5}px var(--body);fill:${key?'var(--ink)':'var(--muted)'}">${i}</text>`; }
+  [[1,90,'var(--k-pause)'],[4,360,'var(--k-explain)'],[7,630,'var(--k-practice)']].forEach(([i,v,col])=>{ d+=`<line x1="${DX(i)}" x2="${DX(i)}" y1="${yt+7}" y2="${yb-7}" style="stroke:${col};stroke-width:2.2;stroke-dasharray:5 4"/><text x="${DX(i)}" y="${yb+26}" text-anchor="middle" style="font:700 16px var(--body);fill:${col}">${v}</text>`; });
+  document.getElementById('dnl').innerHTML=d;
+})();
+</script>
+</body>
+</html>
