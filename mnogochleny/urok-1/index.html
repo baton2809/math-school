@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 1. Многочлены: сложение, вычитание, умножение и деление на одночлен</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: одна колонка ~780px. Сверху «подготовка за 10 минут» и лента времени, ниже блоки урока карточками с бейджем времени. Печатается на A4. */
+:root{--bg:#f4f6fa;--surface:#fff;--ink:#1b2333;--muted:#5c6577;--line:#d9dee8;--accent:#2c56d8;--chip:#e8edf8;
+--k-check:#6b7a99;--k-explain:#2c56d8;--k-practice:#d9771c;--k-pause:#1f9a6e;--k-final:#8a4fd1;--good:#1f9a6e;--bad:#c9373b;--blue:#2563eb;--yellow:#eab308;
+--display:"Unbounded","Golos Text",system-ui,sans-serif;--body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10141b;--surface:#1a202b;--ink:#e7ebf3;--muted:#9aa3b5;--line:#2e3646;--accent:#7b9cff;--chip:#232c3c;
+--k-check:#9aa8c4;--k-explain:#7b9cff;--k-practice:#f2a352;--k-pause:#4fcf9d;--k-final:#b58cf0;--good:#4fcf9d;--bad:#ff6b6e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10141b;--surface:#1a202b;--ink:#e7ebf3;--muted:#9aa3b5;--line:#2e3646;--accent:#7b9cff;--chip:#232c3c;
+--k-check:#9aa8c4;--k-explain:#7b9cff;--k-practice:#f2a352;--k-pause:#4fcf9d;--k-final:#b58cf0;--good:#4fcf9d;--bad:#ff6b6e;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px 64px;display:grid;gap:22px}
+a{color:var(--accent)}
+.back{color:var(--muted);text-decoration:none;font-size:15px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.6vw,32px);line-height:1.2;margin:6px 0 6px;text-wrap:balance}
+.kicker{margin:0;color:var(--muted);font-size:14px}
+.lead{margin:0;color:var(--muted);max-width:68ch}
+h2{font-family:var(--display);font-weight:500;font-size:21px;margin:10px 0 0;text-wrap:balance}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.prep{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
+.prep h3{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.prep ol,.prep ul{margin:0;padding-left:20px}
+.prep li{margin:3px 0}
+.phrases li{font-weight:600}
+.goal{margin:0 0 12px;font-size:18px}
+.scroll{overflow-x:auto}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--body)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+table{border-collapse:collapse;width:100%;font-size:15px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.block{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--kc);border-radius:14px;padding:16px 20px;display:grid;gap:10px;break-inside:avoid}
+.bhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px}
+.time{font-variant-numeric:tabular-nums;font-weight:700;color:var(--kc);font-size:15px;white-space:nowrap}
+.dur{background:var(--kc);color:#fff;border-radius:999px;padding:1px 10px;font-size:13px;font-weight:700}
+:root[data-theme="dark"] .dur{color:#0e1320}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dur{color:#0e1320}}
+.bhead h3{margin:0;font-size:19px;flex:1 1 280px}
+.goalline{margin:0;color:var(--muted)}
+.say{margin:0;padding:10px 14px;background:var(--chip);border-radius:10px;display:grid;gap:4px}
+.say p{margin:0}
+.say p::before{content:"— ";color:var(--muted)}
+.lbl{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;margin:4px 0 0}
+.tasks{margin:0;padding-left:22px;display:grid;gap:6px}
+.ans{color:var(--good);font-weight:600;white-space:nowrap}
+.watch{margin:0;padding:8px 12px;border-left:3px solid var(--bad);background:color-mix(in srgb,var(--bad) 8%,transparent);border-radius:0 8px 8px 0;font-size:15.5px}
+.watch b{color:var(--bad)}
+.tab{font-size:15px;color:var(--muted)}
+figure{margin:4px 0 0}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:4px}
+.k-check{--kc:var(--k-check)}.k-explain{--kc:var(--k-explain)}.k-practice{--kc:var(--k-practice)}.k-pause{--kc:var(--k-pause)}.k-final{--kc:var(--k-final)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+summary{cursor:pointer;font-weight:600}
+pre{white-space:pre-wrap;font-size:14px;background:var(--chip);border-radius:10px;padding:12px}
+.note{font-size:14px;color:var(--muted)}
+@media (max-width:640px){.prep{grid-template-columns:1fr}.block{padding:14px}}
+@media print{body{background:#fff;font-size:12.5pt}.wrap{max-width:none;padding:0}.back,details{display:none}.card,.block{border-color:#bbb}}
+
+.bank h3{font-size:17px;margin:20px 0 6px}.bank ol{margin:0;padding-left:24px;display:grid;gap:5px}.bank li{max-width:72ch}th{text-transform:none;letter-spacing:0;font-size:13px}
+.wrap>*,.block>*{min-width:0}figure{min-width:0}table.grid{width:auto;font-size:20px;font-weight:700}table.grid th,table.grid td{border:2px solid var(--line);text-align:center;padding:10px 22px}table.grid thead th{background:var(--chip);color:var(--ink);font-size:18px}table.grid tbody th{background:var(--chip);color:var(--ink);font-size:18px}</style>
+<style>
+.msnav{position:sticky;top:0;z-index:50;background:#ffffff;border-bottom:2px solid #cfd6e3;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.msnav .in{max-width:920px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-family:"Golos Text",system-ui,sans-serif}
+.ms-btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 18px;border-radius:12px;background:#1d4ed8;color:#fff !important;font-weight:700;font-size:18px;text-decoration:none;white-space:nowrap}
+.ms-btn.ghost{background:#fff;color:#1d4ed8 !important;border:2px solid #1d4ed8}
+.ms-crumb{font-size:16px;color:#4b5563;line-height:1.4}
+.ms-crumb a{color:#1d4ed8;font-weight:600}
+.ms-crumb b{color:#111827}
+.msfoot{max-width:920px;margin:24px auto 40px;padding:18px 16px;border-top:2px solid #cfd6e3;display:grid;gap:12px;font-family:"Golos Text",system-ui,sans-serif}
+.msfoot .ms-btn.ghost{white-space:normal;text-align:center;padding:8px 18px}.msfoot .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+.msfoot .ms-lbl{font-size:15px;color:#4b5563;margin:0}
+.ms-btn:focus-visible{outline:4px solid #f59e0b;outline-offset:3px}
+@media print{.msnav,.msfoot{display:none}}
+</style>
+</head>
+<body>
+<nav class="msnav" aria-label="Навигация"><div class="in"><a class="ms-btn" href="../../">← На главную</a><div class="ms-crumb">Вы здесь: <a href="../../">Главная</a> › <a href="../../#grade-7">7 класс</a> › Многочлены › <b>Урок 1. Сложение, вычитание, умножение и деление на одночлен</b></div></div></nav>
+<div class="wrap">
+<div>
+  <p class="kicker">7 класс · алгебра · 90 минут</p>
+  <h1>Урок 1. Сложение и вычитание многочленов. Умножение и деление на одночлен</h1>
+  <p class="lead">Методичка для учителя: подготовка за 10 минут, лента времени, что говорить, задачи с ответами и где ждать ошибку. Внизу <a href="#bank">банк задач</a> без ответов, около 60 заданий по разделам.</p>
+</div>
+
+<section class="card">
+  <p class="goal"><b>Цель урока:</b> ученик приводит многочлен к стандартному виду, складывает и вычитает многочлены без ошибок в знаках, умножает одночлен на многочлен и делит многочлен на одночлен, а каждый ответ умеет проверить подстановкой числа.</p>
+  <div class="prep">
+    <div>
+      <h3>Подготовка за 10 минут</h3>
+      <ol>
+        <li>Пробежать ленту времени (2 мин).</li>
+        <li>Листок диагностики на одночлены (блок 1).</li>
+        <li>Цветные ручки: каждому виду подобных членов свой цвет.</li>
+        <li>Лист в клетку для «прямоугольников площади» (блок 5).</li>
+        <li>Выбрать из <a href="#bank">банка задач</a> 5–6 заданий на дом.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Три фразы урока</h3>
+      <ul class="phrases">
+        <li>«Складываем только подобные члены».</li>
+        <li>«Минус перед скобкой меняет знак у каждого члена в скобке».</li>
+        <li>«Одночлен умножаем и делим на каждый член многочлена».</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <h3 style="margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)">Главная мысль урока для учителя</h3>
+  <p style="margin:0 0 8px">Многочлен ведёт себя как многозначное число. Если подставить x = 10, то 3x² + 2x + 5 превращается в 325, а сложение многочленов становится сложением столбиком «без переносов». Это даёт ученику и смысл действий, и способ проверить любой ответ за 10 секунд.</p>
+  <p style="margin:0">Почти все ошибки темы — это ошибки с одночленами (x² + x² = x⁴, x · x = 2x) или со знаком минус перед скобкой. Поэтому урок начинается с диагностики одночленов, а проверка подстановкой проходит через весь урок.</p>
+</section>
+
+<h2>Лента времени</h2>
+<section class="card">
+  <div class="scroll"><svg viewBox="0 0 760 118" role="img" aria-label="Лента урока на 90 минут"><g id="tl"></g></svg></div>
+  <div class="legend"><span><i style="background:var(--k-check)"></i>проверка</span><span><i style="background:var(--k-explain)"></i>объяснение</span><span><i style="background:var(--k-practice)"></i>практика</span><span><i style="background:var(--k-pause)"></i>пауза</span><span><i style="background:var(--k-final)"></i>итог</span></div>
+  <div class="scroll" style="margin-top:10px"><table>
+    <thead><tr><th>Время</th><th>Блок</th></tr></thead>
+    <tbody id="tlt"></tbody>
+  </table></div>
+</section>
+
+<!-- 1 -->
+<section class="block k-check">
+  <div class="bhead"><span class="time">0:00–0:08</span><span class="dur">8 мин</span><h3>1. Диагностика: действия с одночленами</h3></div>
+  <p class="goalline">Проверить базу. Если одночлены не держатся, многочлены не получатся: ошибка будет в каждом примере.</p>
+  <div class="say"><p>Шесть быстрых примеров, письменно, без подсказок.</p></div>
+  <ol class="tasks">
+    <li>x² · x³ <span class="ans">x⁵</span></li>
+    <li>3x + 2x <span class="ans">5x</span></li>
+    <li>x² + x² <span class="ans">2x²</span></li>
+    <li>2a · 3a <span class="ans">6a²</span></li>
+    <li>−(−5) <span class="ans">5</span></li>
+    <li>4x · (−2x²) <span class="ans">−8x³</span></li>
+  </ol>
+  <div class="scroll"><table>
+    <thead><tr><th>Ответ ученика</th><th>Что за ним стоит</th><th>Что делать</th></tr></thead>
+    <tbody>
+      <tr><td>x² + x² = <b>x⁴</b> или <b>2x⁴</b></td><td>Путает сложение и умножение степеней</td><td>«Два квадрата плюс… сколько квадратов?» Сложение подобных: степень не меняется</td></tr>
+      <tr><td>x² · x³ = <b>x⁶</b></td><td>Умножает показатели вместо сложения</td><td>Развернуть: x · x · x · x · x — сколько множителей?</td></tr>
+      <tr><td>2a · 3a = <b>6a</b> или <b>5a²</b></td><td>Теряет степень буквы или складывает коэффициенты</td><td>2 · a · 3 · a: числа с числами, буквы с буквами</td></tr>
+      <tr><td>4x · (−2x²) = <b>8x³</b></td><td>Теряет знак</td><td>Правило: сначала знак, потом число, потом буквы</td></tr>
+    </tbody>
+  </table></div>
+  <p class="watch"><b>Если ошибок 3 и больше</b>, первые 10 минут блока 2 потратьте на одночлены. Иначе урок не сработает.</p>
+</section>
+
+<!-- 2 -->
+<section class="block k-explain">
+  <div class="bhead"><span class="time">0:08–0:20</span><span class="dur">12 мин</span><h3>2. Многочлен: члены, подобные, стандартный вид</h3></div>
+  <p class="goalline">Ввести понятия и показать, что многочлен похож на многозначное число.</p>
+  <div class="say">
+    <p>Многочлен — это сумма одночленов. Каждый одночлен называют членом многочлена. Знак перед членом принадлежит ему.</p>
+    <p>Подобные члены — те, у которых одинаковая буквенная часть. Подчеркнём их одним цветом и сложим коэффициенты.</p>
+    <p>Многочлен стандартного вида: все члены — одночлены стандартного вида и среди них нет подобных. Степень многочлена — наибольшая из степеней его членов.</p>
+    <p>А теперь фокус: подставим x = 10 в 3x² + 2x + 5. Получится 300 + 20 + 5 = 325. Коэффициенты — это цифры числа!</p>
+  </div>
+  <figure><svg viewBox="0 0 760 190" role="img" aria-label="Многочлен 3x² − 5x + 7: члены, коэффициенты, степень"><g id="anat"></g></svg>
+  <figcaption>Рис. 1. Строение многочлена. Знак «−» перед 5x принадлежит члену: член равен −5x.</figcaption></figure>
+  <ol class="tasks">
+    <li>Приведите к стандартному виду: 3x² + 5x − x² + 2x − 4. <span class="ans">2x² + 7x − 4</span></li>
+    <li>Приведите к стандартному виду: a²b + 3ab² − 4a²b + ab². <span class="ans">−3a²b + 4ab²</span></li>
+    <li>Найдите степень многочлена 5x³ − 2x + 1 и 4x²y² − xy. <span class="ans">3; 4</span></li>
+    <li>Найдите значение при x = 10: 2x² + 3x + 4 и x² + 5x + 2. <span class="ans">234; 152</span></li>
+  </ol>
+  <p class="watch"><b>Ждите в задаче 2:</b> a²b и ab² считают подобными («буквы те же»). Вопрос: «Это одинаковые одночлены? Подставь a = 2, b = 1: 4 и 2».</p>
+</section>
+
+<!-- 3 -->
+<section class="block k-explain">
+  <div class="bhead"><span class="time">0:20–0:35</span><span class="dur">15 мин</span><h3>3. Сложение и вычитание многочленов</h3></div>
+  <p class="goalline">Сформулировать правило: раскрыть скобки, привести подобные. Главное — минус перед скобкой меняет знак у <b>каждого</b> члена.</p>
+  <div class="say">
+    <p>Сложим (3x² + 2x + 5) + (x² + 4x + 1). При x = 10 это 325 + 141. Сложи числа столбиком, а потом многочлены «столбиком», подобные под подобными. Что заметил?</p>
+    <p>Плюс перед скобкой: скобки просто убираем. Минус перед скобкой: убираем скобки и меняем знак у каждого члена внутри.</p>
+    <p>Почему у каждого? Минус перед скобкой — это умножение на −1. А умножаем мы на каждый член.</p>
+  </div>
+  <figure><svg viewBox="0 0 760 200" role="img" aria-label="Сложение многочленов столбиком и сложение чисел при x равном 10"><g id="col"></g></svg>
+  <figcaption>Рис. 2. Слева многочлены, справа те же многочлены при x = 10. Коэффициенты складываются так же, как цифры в разрядах.</figcaption></figure>
+  <figure><svg viewBox="0 0 760 140" role="img" aria-label="Минус перед скобкой меняет знак каждого члена"><g id="minus"></g></svg>
+  <figcaption>Рис. 3. Минус перед скобкой меняет знак у всех трёх членов, а не только у первого.</figcaption></figure>
+  <ol class="tasks">
+    <li>(3x² + 2x + 5) + (x² + 4x + 1) <span class="ans">4x² + 6x + 6</span></li>
+    <li>(5a − 3b) + (2a + 7b) <span class="ans">7a + 4b</span></li>
+    <li>(4x² − 3x + 2) − (x² + 2x − 5) <span class="ans">3x² − 5x + 7</span></li>
+    <li>(2a² − ab) − (a² − 3ab + b²) <span class="ans">a² + 2ab − b²</span></li>
+    <li>(x² − 1) − (1 − x²) <span class="ans">2x² − 2</span></li>
+  </ol>
+  <p class="watch"><b>Главная ошибка урока:</b> в задаче 3 пишут 4x² − 3x + 2 − x² + 2x − 5, то есть знак поменяли только у первого члена. Проверка при x = 10: исходное 372 − 115 = 257, неверный ответ даёт 3x² − x − 3 = 287 ≠ 257, верный 3x² − 5x + 7 = 257.</p>
+</section>
+
+<!-- 4 -->
+<section class="block k-pause">
+  <div class="bhead"><span class="time">0:35–0:40</span><span class="dur">5 мин</span><h3>4. Пауза</h3></div>
+  <p class="goalline">Встать, вода. Устно: «Задумайте трёхзначное число 3x² + 2x + 5 при x = 10. А при x = 1?» (325; 10)</p>
+</section>
+
+<!-- 5 -->
+<section class="block k-explain">
+  <div class="bhead"><span class="time">0:40–0:55</span><span class="dur">15 мин</span><h3>5. Умножение одночлена на многочлен: прямоугольник площади</h3></div>
+  <p class="goalline">Показать распределительный закон как площадь прямоугольника. Ученик видит, почему одночлен умножается на каждый член.</p>
+  <div class="say">
+    <p>Прямоугольник со сторонами 3x и (2x + 5). Разрежем его на два: 3x на 2x и 3x на 5. Площади: 6x² и 15x.</p>
+    <p>Вся площадь — сумма частей: 3x(2x + 5) = 6x² + 15x. Чтобы умножить одночлен на многочлен, нужно умножить этот одночлен на каждый член многочлена и сложить произведения.</p>
+    <p>Для длинных многочленов удобна «решётка»: сверху члены многочлена, слева одночлен, в клетках произведения.</p>
+  </div>
+  <figure><svg viewBox="0 0 760 230" role="img" aria-label="Прямоугольник 3x на 2x плюс 5 разрезан на 6x² и 15x"><g id="area"></g></svg>
+  <figcaption>Рис. 4. Умножение одночлена на многочлен — это площадь прямоугольника, разрезанного на части.</figcaption></figure>
+  <figure><div class="scroll"><table class="grid">
+    <thead><tr><th>×</th><th>a²</th><th>−3a</th><th>+4</th></tr></thead>
+    <tbody><tr><th>−2a</th><td>−2a³</td><td>+6a²</td><td>−8a</td></tr></tbody>
+  </table></div><figcaption>Рис. 5. Решётка: −2a(a² − 3a + 4) = −2a³ + 6a² − 8a. Знак члена переносим в клетку вместе с ним.</figcaption></figure>
+  <ol class="tasks">
+    <li>3x(2x + 5) <span class="ans">6x² + 15x</span></li>
+    <li>−2a(a² − 3a + 4) <span class="ans">−2a³ + 6a² − 8a</span></li>
+    <li>4xy(x − 2y) <span class="ans">4x²y − 8xy²</span></li>
+    <li>x(x + 3) − x² <span class="ans">3x</span></li>
+    <li>5a(2a − 3) − 2a(5a + 1) <span class="ans">−17a</span></li>
+  </ol>
+  <p class="watch"><b>Ждите:</b> 3x(2x + 5) = 6x² + 5 (умножили только первый член) — покажите на прямоугольнике, где «потерялась» вторая часть. И в задаче 5: −2a(5a + 1) = −10a² + 2a (знак). Подсказка: «Минус 2a умножаем на плюс 1, что получится?»</p>
+</section>
+
+<!-- 6 -->
+<section class="block k-explain">
+  <div class="bhead"><span class="time">0:55–1:05</span><span class="dur">10 мин</span><h3>6. Деление многочлена на одночлен</h3></div>
+  <p class="goalline">Деление — действие, обратное умножению: по площади и одной стороне найти другую сторону.</p>
+  <div class="say">
+    <p>Площадь прямоугольника 6x² + 15x, одна сторона 3x. Найдите другую. Мы только что умножали — значит, ответ 2x + 5.</p>
+    <p>Чтобы разделить многочлен на одночлен, нужно каждый член многочлена разделить на этот одночлен и сложить результаты.</p>
+    <p>Проверка: умножаем ответ на делитель и должны получить делимое.</p>
+  </div>
+  <ol class="tasks">
+    <li>(6x² + 3x) : 3x <span class="ans">2x + 1</span></li>
+    <li>(12a³ − 8a² + 4a) : 4a <span class="ans">3a² − 2a + 1</span></li>
+    <li>(15x²y − 10xy²) : 5xy <span class="ans">3x − 2y</span></li>
+    <li>(−9m⁴ + 6m²) : (−3m²) <span class="ans">3m² − 2</span></li>
+  </ol>
+  <p class="watch"><b>Ждите:</b> (6x² + 3x) : 3x = 2x (член 3x : 3x = 1 «исчез», потому что «ничего не осталось»). Проверка умножением: 3x · 2x = 6x², а где 3x? Значит, во втором члене получается 1, а не 0.</p>
+</section>
+
+<!-- 7 -->
+<section class="block k-practice">
+  <div class="bhead"><span class="time">1:05–1:20</span><span class="dur">15 мин</span><h3>7. Практика: упрощение и уравнения</h3></div>
+  <p class="goalline">Соединить все действия урока и применить их в уравнениях. Каждый ответ проверять подстановкой x = 1 или x = 10.</p>
+  <div class="say"><p>Сначала раскрой скобки, потом приведи подобные, потом решай. После решения подставь корень в исходное уравнение.</p></div>
+  <ol class="tasks">
+    <li>Упростите: (3a² − 2a) − (a² + a) + 3a. <span class="ans">2a²</span></li>
+    <li>Упростите: 2x(x − 4) − x(2x + 1). <span class="ans">−9x</span></li>
+    <li>Решите: 5x − (3x + 4) = 10. <span class="ans">x = 7</span></li>
+    <li>Решите: 2x(x − 3) − 2x² = 12. <span class="ans">x = −2</span></li>
+    <li>Докажите, что значение выражения (x² + 3x) − x(x + 3) + 7 не зависит от x. <span class="ans">равно 7</span></li>
+    <li>Стороны прямоугольника 2a и 3a + 5. Найдите его площадь и периметр. <span class="ans">6a² + 10a; 10a + 10</span></li>
+  </ol>
+  <p class="watch"><b>В задаче 4</b> ученики пугаются x² и думают, что это «квадратное уравнение». Попросите сначала только раскрыть скобки: квадраты сократятся сами.</p>
+</section>
+
+<!-- 8 -->
+<section class="block k-practice">
+  <div class="bhead"><span class="time">1:20–1:27</span><span class="dur">7 мин</span><h3>8. Самостоятельная работа: три уровня</h3></div>
+  <ol class="tasks">
+    <li><b>А.</b> (5x² − 3x) + (2x² + x); (a + 2b) − (a − 2b). <span class="ans">7x² − 2x; 4b</span></li>
+    <li><b>Б.</b> 2x(3x − 4); (8a³ − 4a²) : 4a. <span class="ans">6x² − 8x; 2a² − a</span></li>
+    <li><b>В.</b> Решите: 3x(x + 2) − 3x² = 18. <span class="ans">x = 3</span></li>
+  </ol>
+  <p class="watch"><b>Если ошибка в А</b> — знаки при вычитании, вернуться к рис. 3. <b>Если в Б</b> — одночлены, повторить диагностику блока 1 на следующем уроке.</p>
+</section>
+
+<!-- 9 -->
+<section class="block k-final">
+  <div class="bhead"><span class="time">1:27–1:30</span><span class="dur">3 мин</span><h3>9. Итог и проверка на выходе</h3></div>
+  <ol class="tasks">
+    <li>Раскройте скобки: −(2a − 3b + 1). <span class="ans">−2a + 3b − 1</span></li>
+    <li>Выполните деление: (10x³ − 5x) : 5x. <span class="ans">2x² − 1</span></li>
+  </ol>
+  <p class="goalline">Обе задачи верно — тема урока усвоена. Ошибка в первой — следующий урок начать со знаков, во второй — с деления одночленов.</p>
+</section>
+
+<h2 id="bank">Банк задач (без ответов)</h2>
+<section class="card bank">
+  <p class="goalline" style="margin:0">Для урока, дома и проверочной. Внутри разделов задачи идут от простых к сложным. Корни уравнений целые.</p>
+
+  <h3>А. Стандартный вид и степень многочлена</h3>
+  <ol>
+    <li>Приведите к стандартному виду: 4x + 3 − x + 5.</li>
+    <li>Приведите к стандартному виду: 2a² − 3a + a² + 7a − 1.</li>
+    <li>Приведите к стандартному виду: x²y − 3xy² + 5x²y + xy².</li>
+    <li>Приведите к стандартному виду: 3m · 2m − m² + 4m · m.</li>
+    <li>Найдите степень многочлена: 7x⁴ − 2x² + x; 3a²b − ab³ + 5.</li>
+    <li>Найдите значение многочлена 2x² − 5x + 3 при x = −2.</li>
+    <li>Запишите многочлен, который при x = 10 равен 4073.</li>
+  </ol>
+
+  <h3>Б. Сложение и вычитание многочленов</h3>
+  <ol>
+    <li>(2x + 5) + (3x − 2)</li>
+    <li>(4a − 1) − (a + 3)</li>
+    <li>(x² − 3x + 2) + (2x² + x − 5)</li>
+    <li>(5y² − 2y + 1) − (3y² − 2y − 4)</li>
+    <li>(3a² − 2ab + b²) − (a² − 2ab − b²)</li>
+    <li>(7x³ − x) − (2x³ + 5x² − x)</li>
+    <li>(m² − 4) − (4 − m²) + (m² + 8)</li>
+    <li>Найдите сумму и разность многочленов 3x² − 2x + 1 и x² + 2x − 1.</li>
+    <li>Какой многочлен нужно прибавить к x² − 3x + 2, чтобы получить 2x² + x?</li>
+    <li>Докажите, что сумма трёх последовательных натуральных чисел делится на 3.</li>
+  </ol>
+
+  <h3>В. Умножение одночлена на многочлен</h3>
+  <ol>
+    <li>2(3x − 4)</li>
+    <li>x(x + 7)</li>
+    <li>−3a(a − 2)</li>
+    <li>4x(x² − 2x + 3)</li>
+    <li>−5m(2m² − m + 1)</li>
+    <li>2ab(3a − b)</li>
+    <li>−x²(4x − 3)</li>
+    <li>0,5y(4y² − 6y + 2)</li>
+    <li>Упростите: 3x(x − 2) + 2x(3 − x)</li>
+    <li>Упростите: a(a + b) − b(a − b)</li>
+  </ol>
+
+  <h3>Г. Деление многочлена на одночлен</h3>
+  <ol>
+    <li>(8x + 12) : 4</li>
+    <li>(10a² + 5a) : 5a</li>
+    <li>(x³ − 2x²) : x²</li>
+    <li>(14m³ − 21m² + 7m) : 7m</li>
+    <li>(18a²b − 12ab²) : 6ab</li>
+    <li>(−20x⁴ + 15x³) : (−5x³)</li>
+    <li>Площадь прямоугольника 12a² + 8a, одна сторона 4a. Найдите другую сторону.</li>
+    <li>Найдите многочлен, который при делении на 2x даёт 3x − 1.</li>
+  </ol>
+
+  <h3>Д. Упростите выражение</h3>
+  <ol>
+    <li>(4x² − x) − 2x(2x − 1)</li>
+    <li>3a(a + 2) − (3a² + 4a)</li>
+    <li>(6x² − 9x) : 3x + x</li>
+    <li>2y(y − 3) − y(2y − 5) + y</li>
+    <li>(12m² − 4m) : 4m − (2m − 1)</li>
+    <li>Докажите, что значение выражения x(x − 4) − (x² − 4x − 3) не зависит от x.</li>
+  </ol>
+
+  <h3>Е. Решите уравнение</h3>
+  <ol>
+    <li>4(x − 2) − (2x + 3) = 5</li>
+    <li>x(x + 4) − x² = 20</li>
+    <li>(5x − 3) − (2x + 6) = 0</li>
+    <li>3x(2x − 1) − 6x² = 9</li>
+    <li>2x(x + 5) − x(2x − 3) = 26</li>
+    <li>7 − (2x − 3) = 4x − 2</li>
+  </ol>
+
+  <h3>Ж. Найдите ошибку</h3>
+  <ol>
+    <li>(3x² − 2x) − (x² − 5x) = 2x² − 7x</li>
+    <li>x² + x² = x⁴</li>
+    <li>2x(3x − 4) = 6x² − 4</li>
+    <li>(9a² + 3a) : 3a = 3a</li>
+    <li>−(a − b + c) = −a − b + c</li>
+  </ol>
+
+  <h3>З. Задачи</h3>
+  <ol>
+    <li>Одна сторона прямоугольника x см, другая на 3 см больше. Запишите многочленом площадь и периметр.</li>
+    <li>Длина комнаты 2a м, ширина a + 1 м. На сколько квадратных метров площадь комнаты больше площади квадрата со стороной a м?</li>
+    <li>Ученик задумал число x, умножил на 4, прибавил 6, вычел удвоенное число и разделил на 2. Докажите, что получилось x + 3.</li>
+    <li>Докажите, что разность двузначного числа и числа, записанного теми же цифрами в обратном порядке, делится на 9.</li>
+  </ol>
+</section>
+
+<details>
+  <summary>Промпт, по которому собран этот план (для следующих тем)</summary>
+<pre>Ты опытный методист по математике. Составь методичку урока для учителя-профессионала,
+который подготовится по ней за 10 минут.
+
+Вводные: тема «[Сложение и вычитание многочленов. Умножение и деление на одночлен]»,
+[7] класс, учебник [Макарычев]. Длительность [90] минут.
+
+Нужно:
+1. «Подготовка за 10 минут»: цель, 3 главные фразы урока, что приготовить.
+2. Главная мысль урока для учителя (неочевидная, не из учебника).
+3. Лента времени: блоки с минутами, сумма ровно [90].
+4. Диагностика с таблицей «ответ ученика → что за ним стоит → что делать».
+5. По каждому блоку: время и цель; 2–4 реплики учителя; задачи с ответами;
+   какую ошибку ждать и что делать.
+6. Рисунки, как в учебнике: строение многочлена, сложение столбиком при x = 10,
+   знак минус перед скобкой, прямоугольник площади, решётка.
+7. Банк задач БЕЗ ответов по разделам, корни уравнений целые.
+8. Терминология как в учебнике, арифметика проверена, коротко и по делу.</pre>
+</details>
+
+<p class="note">Основа этой темы — подобные слагаемые из 5 класса: <a href="../../bukvennye-vyrazheniya/urok-1/">Урок «Почему 5x + x = 6x»</a>.</p>
+</div>
+
+<script>
+(function(){
+  const B=[['Диагностика',0,8,'check'],['Многочлен',8,20,'explain'],['Сложение, вычитание',20,35,'explain'],['Пауза',35,40,'pause'],
+    ['Умножение',40,55,'explain'],['Деление',55,65,'explain'],['Практика',65,80,'practice'],['Самост.',80,87,'practice'],['Итог',87,90,'final']];
+  const NAMES=['Диагностика: действия с одночленами','Многочлен: члены, подобные, стандартный вид','Сложение и вычитание многочленов','Пауза','Умножение одночлена на многочлен','Деление многочлена на одночлен','Практика: упрощение и уравнения','Самостоятельная работа','Итог и проверка на выходе'];
+  const X=m=>10+m*(740/90), hm=m=>`${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`;
+  let g='';
+  for(let t=0;t<=90;t+=10) g+=`<line x1="${X(t)}" x2="${X(t)}" y1="18" y2="76" style="stroke:var(--line)"/><text x="${X(t)}" y="98" text-anchor="middle" style="font:12.5px var(--body);fill:var(--muted)">${t}</text>`;
+  B.forEach((b,i)=>{ const w=X(b[2])-X(b[1]); g+=`<rect x="${X(b[1])+1}" y="24" width="${w-2}" height="46" rx="5" style="fill:var(--k-${b[3]})"><title>${hm(b[1])}–${hm(b[2])}: ${NAMES[i]}</title></rect>`+
+     `<text x="${X(b[1])+w/2}" y="${w>40?44:52}" text-anchor="middle" style="font:700 15px var(--body);fill:#fff">${i+1}</text>`+
+     (w>60?`<text x="${X(b[1])+w/2}" y="62" text-anchor="middle" style="font:500 11.5px var(--body);fill:#fff">${b[2]-b[1]} мин</text>`:''); });
+  document.getElementById('tl').innerHTML=g;
+  document.getElementById('tlt').innerHTML=B.map((b,i)=>`<tr><td style="white-space:nowrap">${hm(b[1])}–${hm(b[2])} · <b>${b[2]-b[1]} мин</b></td><td>${i+1}. ${NAMES[i]}</td></tr>`).join('');
+
+  const BL='var(--k-explain)', OR='var(--k-practice)', GR='var(--k-pause)', RD='var(--bad)', PU='var(--k-final)';
+  const T=(x,y,t,st,col,anch)=>`<text x="${x}" y="${y}" text-anchor="${anch||'middle'}" style="font:${st} var(--body);fill:${col||'var(--ink)'}">${t}</text>`;
+  // рис 1
+  let a='';
+  const terms=[['3x²',180,BL],['−5x',360,OR],['+7',530,GR]];
+  terms.forEach(([t,x,c])=>{ a+=`<rect x="${x-70}" y="62" width="140" height="56" rx="10" style="fill:${c};fill-opacity:.14;stroke:${c};stroke-width:2"/>`+T(x,100,t,'700 30px'); });
+  a+=T(180,40,'член, степень 2','600 14px',BL)+T(360,40,'член −5x, степень 1','600 14px',OR)+T(530,40,'свободный член','600 14px',GR);
+  a+=`<path d="M152 126 v10" style="stroke:${BL};stroke-width:2"/>`+T(152,156,'коэффициент 3','600 14px',BL);
+  a+=`<path d="M334 126 v10" style="stroke:${OR};stroke-width:2"/>`+T(334,156,'коэффициент −5','600 14px',OR);
+  a+=T(680,96,'степень','600 14px','var(--muted)')+T(680,116,'многочлена 2','600 14px','var(--muted)');
+  a+=T(360,184,'знак стоит перед членом и принадлежит ему','500 13px','var(--muted)');
+  document.getElementById('anat').innerHTML=a;
+  // рис 2: столбиком
+  let c='';
+  const L=[['3x²','+ 2x','+ 5'],['x²','+ 4x','+ 1'],['4x²','+ 6x','+ 6']], N=[['3','2','5'],['1','4','1'],['4','6','6']];
+  const cols=[90,170,240], ncols=[540,580,620];
+  [0,1,2].forEach(r=>{ const y=50+r*48; L[r].forEach((t,k)=>c+=T(cols[k],y,t,'700 24px',[BL,OR,GR][k],'end'));
+    N[r].forEach((t,k)=>c+=T(ncols[k],y,t,'700 26px',[BL,OR,GR][k])); });
+  c+=T(20,74,'+','700 24px','var(--ink)','start')+T(500,74,'+','700 24px','var(--ink)','start');
+  c+=`<line x1="20" y1="112" x2="260" y2="112" style="stroke:var(--ink);stroke-width:2"/><line x1="500" y1="112" x2="650" y2="112" style="stroke:var(--ink);stroke-width:2"/>`;
+  c+=T(380,74,'x = 10 →','700 18px','var(--muted)');
+  c+=T(580,186,'сотни · десятки · единицы','500 13px','var(--muted)')+T(140,186,'x² · x · числа','500 13px','var(--muted)');
+  document.getElementById('col').innerHTML=c;
+  // рис 3: минус
+  let m=T(40,52,'−(','700 30px','var(--ink)','start');
+  const inn=[['x²',105],['+ 2x',185],['− 5',270]], out=[['−x²',480],['− 2x',565],['+ 5',650]];
+  inn.forEach(([t,x])=>m+=T(x,52,t,'700 28px'));
+  m+=T(310,52,')','700 30px','var(--ink)','start')+T(400,52,'=','700 30px');
+  out.forEach(([t,x])=>m+=T(x,52,t,'700 28px',RD));
+  const was=['было +x²','было +2x','было −5']; out.forEach(([t,x],i)=>{ m+=`<path d="M${x} 64 v14" style="stroke:${RD};stroke-width:1.6"/>`+T(x,98,was[i],'500 13px','var(--muted)'); });
+  m+=T(565,128,'знак меняется у каждого члена','600 14px',RD);
+  document.getElementById('minus').innerHTML=m;
+  // рис 4: площадь
+  const x0=140,y0=30,H=150,W1=180,W2=150; let r='';
+  r+=`<rect x="${x0}" y="${y0}" width="${W1}" height="${H}" style="fill:${BL};fill-opacity:.15;stroke:${BL};stroke-width:2.2"/>`;
+  r+=`<rect x="${x0+W1}" y="${y0}" width="${W2}" height="${H}" style="fill:${OR};fill-opacity:.15;stroke:${OR};stroke-width:2.2"/>`;
+  r+=T(x0+W1/2,y0+H/2+10,'6x²','700 28px')+T(x0+W1+W2/2,y0+H/2+10,'15x','700 28px');
+  r+=T(x0+W1/2,y0-10,'2x','700 18px',BL)+T(x0+W1+W2/2,y0-10,'5','700 18px',OR);
+  r+=T(x0-14,y0+H/2+6,'3x','700 20px','var(--ink)','end');
+  r+=`<path d="M${x0} ${y0+H+12}v8H${x0+W1+W2}v-8" style="fill:none;stroke:var(--muted);stroke-width:1.5"/>`+T(x0+(W1+W2)/2,y0+H+40,'2x + 5','700 17px');
+  r+=T(x0+W1+W2+30,y0+H/2-6,'3x(2x + 5) =','700 18px','var(--ink)','start')+T(x0+W1+W2+30,y0+H/2+22,'6x² + 15x','700 22px',PU,'start');
+  document.getElementById('area').innerHTML=r;
+})();
+</script>
+
+<nav class="msfoot" aria-label="Переход к другим материалам"><p class="ms-lbl">Повторить основу темы (5 класс):</p><div class="row"><a class="ms-btn ghost" href="../../bukvennye-vyrazheniya/urok-1/">Подобные слагаемые: почему 5x + x = 6x</a></div><div><a class="ms-btn" href="../../">← На главную</a></div></nav>
+</body>
+</html>

@@ -42,7 +42,7 @@ a:focus-visible,button:focus-visible{outline:4px solid #f59e0b;outline-offset:3p
 .b-model{color:var(--t-model);background:var(--t-model-bg)}
 .b-map{color:var(--t-map);background:var(--t-map-bg)}
 
-.classes{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.classes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .classes a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:110px;border-radius:18px;background:var(--surface);border:3px solid var(--accent);color:var(--accent);text-decoration:none;font-weight:700;font-size:28px;text-align:center;padding:12px}
 .classes a span{font-size:17px;font-weight:500;color:var(--muted)}
 .classes a:hover{background:var(--soft)}
@@ -65,7 +65,8 @@ footer{color:var(--muted);font-size:17px;border-top:2px solid var(--line);paddin
   body{font-size:18px}
   .item{grid-template-columns:1fr}
   .open{width:100%}
-  .classes a{font-size:24px;min-height:96px}
+  .classes{grid-template-columns:1fr}
+  .classes a{font-size:24px;min-height:84px}
 }
 </style>
 </head>
@@ -73,13 +74,13 @@ footer{color:var(--muted);font-size:17px;border-top:2px solid var(--line);paddin
 <div class="wrap" id="top">
   <header>
     <h1>Математика в картинках</h1>
-    <p class="sub">Планы уроков и наглядные материалы по математике для 5 и 6 класса.</p>
+    <p class="sub">Планы уроков и наглядные материалы по математике для 5, 6 и 7 класса.</p>
   </header>
 
   <section class="howto" aria-labelledby="howto-h">
     <h2 id="howto-h">Как пользоваться</h2>
     <ol>
-      <li><span>Нажмите на нужный класс: <b>5 класс</b> или <b>6 класс</b>.</span></li>
+      <li><span>Нажмите на нужный класс: <b>5</b>, <b>6</b> или <b>7 класс</b>.</span></li>
       <li><span>Выберите материал и нажмите синюю кнопку <b>«Открыть»</b>.</span></li>
       <li><span>Чтобы вернуться сюда, нажмите синюю кнопку <b>«← На главную»</b> вверху любой страницы.</span></li>
     </ol>
@@ -93,6 +94,7 @@ footer{color:var(--muted);font-size:17px;border-top:2px solid var(--line);paddin
   <nav class="classes" aria-label="Выбор класса">
     <a href="#grade-5">5 класс<span>Буквенные выражения и уравнения</span></a>
     <a href="#grade-6">6 класс<span>Пропорции</span></a>
+    <a href="#grade-7">7 класс<span>Многочлены</span></a>
   </nav>
 
   <!-- 5 класс -->
@@ -136,6 +138,22 @@ footer{color:var(--muted);font-size:17px;border-top:2px solid var(--line);paddin
           <span class="open">Открыть →</span></a></li>
         <li><a class="item" href="proporcii/">
           <span><span class="badge b-model">Для ученика</span><span class="t">Наглядные модели на планшете</span><span class="w">5 экранов: краски, цена за одну, найди x, прямая и обратная, ловушки.</span></span>
+          <span class="open">Открыть →</span></a></li>
+      </ul>
+    </article>
+    <a class="totop" href="#top">↑ Наверх, к выбору класса</a>
+  </section>
+
+  <!-- 7 класс -->
+  <section class="grade" id="grade-7" aria-labelledby="g7">
+    <h2 class="grade-title" id="g7"><span class="pill">7 класс</span></h2>
+
+    <article class="topic">
+      <h3>Многочлены</h3>
+      <p class="desc">Стандартный вид многочлена, сложение и вычитание, умножение одночлена на многочлен и деление многочлена на одночлен.</p>
+      <ul class="items">
+        <li><a class="item" href="mnogochleny/urok-1/">
+          <span><span class="badge b-plan">План урока</span><span class="t">Урок 1. Сложение и вычитание многочленов. Умножение и деление на одночлен</span><span class="w">90 минут, рисунки площади, проверка подстановкой x = 10. Банк из 56 задач.</span></span>
           <span class="open">Открыть →</span></a></li>
       </ul>
     </article>
