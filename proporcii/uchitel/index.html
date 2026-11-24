@@ -37,8 +37,23 @@ svg .dial{fill:var(--accent);fill-opacity:.1;stroke:var(--accent);stroke-width:2
 svg .ln{fill:none;stroke:var(--muted);stroke-width:1.25} svg .arr{fill:var(--muted)}
 .note{font-size:14px;color:var(--muted);border-top:1px solid var(--line);margin-top:48px;padding-top:14px}
 @media (max-width:560px){body{font-size:17px}.toc ol{columns:1}}
-.lead{font-size:19px;color:var(--ink);max-width:70ch}.cta{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:12px 18px;border-radius:12px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600}.back{display:inline-block;margin-bottom:18px;color:var(--muted);text-decoration:none;font-size:15px}</style></head><body><div class="wrap">
-<a class="back" href="../../">← Все темы</a>
+.lead{font-size:19px;color:var(--ink);max-width:70ch}.cta{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:12px 18px;border-radius:12px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600}.back{display:inline-block;margin-bottom:18px;color:var(--muted);text-decoration:none;font-size:15px}</style><style>
+.msnav{position:sticky;top:0;z-index:50;background:#ffffff;border-bottom:2px solid #cfd6e3;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.msnav .in{max-width:920px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-family:"Golos Text",system-ui,sans-serif}
+.ms-btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 18px;border-radius:12px;background:#1d4ed8;color:#fff !important;font-weight:700;font-size:18px;text-decoration:none;white-space:nowrap}
+.ms-btn.ghost{background:#fff;color:#1d4ed8 !important;border:2px solid #1d4ed8}
+.ms-crumb{font-size:16px;color:#4b5563;line-height:1.4}
+.ms-crumb a{color:#1d4ed8;font-weight:600}
+.ms-crumb b{color:#111827}
+.msfoot{max-width:920px;margin:24px auto 40px;padding:18px 16px;border-top:2px solid #cfd6e3;display:grid;gap:12px;font-family:"Golos Text",system-ui,sans-serif}
+.msfoot .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+.msfoot .ms-lbl{font-size:15px;color:#4b5563;margin:0}
+.ms-btn:focus-visible{outline:4px solid #f59e0b;outline-offset:3px}
+@media print{.msnav,.msfoot{display:none}}
+</style>
+</head><body>
+<nav class="msnav" aria-label="Навигация"><div class="in"><a class="ms-btn" href="../../">← На главную</a><div class="ms-crumb">Вы здесь: <a href="../../">Главная</a> › <a href="../../#grade-6">6 класс</a> › Пропорции › <b>Карта темы</b></div></div></nav>
+<div class="wrap">
 <header><p class="kicker">Для учителя · 6 класс</p><h1>Пропорции: карта темы для учителя</h1><p class="lead">На чём держать внимание ученика, в каком порядке вести тему, где он споткнётся и какие вопросы задавать. Модели для ученика лежат отдельно и открываются на планшете.</p><a class="cta" href="../">Открыть модели для ученика →</a> <a class="cta" style="background:var(--surface);color:var(--accent);border:1.5px solid var(--accent)" href="../urok-1/">План урока 1 на 90 минут →</a></header>
 <nav class="toc" aria-label="Содержание"><b>Содержание</b><ol id="toc"></ol></nav>
 <h2>Главная идея одной фразой</h2>
@@ -230,4 +245,5 @@ svg .ln{fill:none;stroke:var(--muted);stroke-width:1.25} svg .arr{fill:var(--mut
 </div>
 <script>
 (function(){var t=document.getElementById('toc');document.querySelectorAll('h2').forEach(function(h,i){h.id='s'+(i+1);var li=document.createElement('li');var a=document.createElement('a');a.href='#s'+(i+1);a.textContent=h.textContent;li.appendChild(a);t.appendChild(li);});})();
-</script></body></html>
+</script><nav class="msfoot" aria-label="Переход к другим материалам"><p class="ms-lbl">Другие материалы темы «Пропорции»:</p><div class="row"><span></span><a class="ms-btn ghost" href="../urok-1/">Урок 1. Отношения и пропорции →</a></div><div><a class="ms-btn" href="../../">← На главную</a></div></nav>
+</body></html>

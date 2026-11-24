@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#2c56d8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1d4ed8">
 <title>Математика в картинках</title>
 <script>
   // старые ссылки вида /#3 вели на буквенные выражения
@@ -11,81 +11,138 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* Layout: портал тем. Шапка, сетка карточек тем (по одной на тему), внизу блок для учителя. */
-:root{--bg:#eef1f7;--surface:#fff;--ink:#1b2333;--muted:#5c6577;--line:#d6dce8;--accent:#2c56d8;--on-accent:#fff;--chip:#e6ebf7;--t1:#2c56d8;--t2:#d9771c;--t3:#1f9a6e;
---display:"Unbounded","Golos Text",system-ui,sans-serif;--body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10141b;--surface:#1a202b;--ink:#e7ebf3;--muted:#9aa3b5;--line:#2e3646;--accent:#7b9cff;--on-accent:#0e1320;--chip:#232c3c;--t1:#7b9cff;--t2:#f2a352;--t3:#4fcf9d;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#10141b;--surface:#1a202b;--ink:#e7ebf3;--muted:#9aa3b5;--line:#2e3646;--accent:#7b9cff;--on-accent:#0e1320;--chip:#232c3c;--t1:#7b9cff;--t2:#f2a352;--t3:#4fcf9d;color-scheme:dark}
+/* Layout: одна колонка ~900px, крупный шрифт. Сверху «Как пользоваться», затем выбор класса двумя большими кнопками, ниже по разделу на класс: тема → список материалов строками с бейджем типа и кнопкой «Открыть». Светлая тема намеренно: высокий контраст для пожилого пользователя. */
+:root{
+  --bg:#f5f7fb; --surface:#ffffff; --ink:#111827; --muted:#4b5563; --line:#cfd6e3;
+  --accent:#1d4ed8; --accent-ink:#ffffff; --soft:#e7eefc;
+  --t-plan:#b45309; --t-plan-bg:#fff3e0; --t-model:#15803d; --t-model-bg:#e6f6ec; --t-map:#6d28d9; --t-map-bg:#f1eafe;
+  --font:"Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color-scheme: light;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5}
-.wrap{max-width:1080px;margin:0 auto;padding:40px 22px 64px;display:grid;gap:32px}
-header h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,42px);margin:0 0 10px;letter-spacing:-.01em;text-wrap:balance}
-header p{margin:0;color:var(--muted);max-width:62ch;font-size:18px}
-.topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
-.topic{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;display:grid;gap:14px;align-content:start}
-.thumb{background:var(--chip);border-radius:12px;height:130px;display:grid;place-items:center}
-.thumb svg{width:86%;height:auto;max-height:110px}
-.grade{display:inline-block;font-size:13px;font-weight:600;color:var(--accent);background:var(--chip);border-radius:999px;padding:3px 10px}
-.topic h2{font-family:var(--display);font-weight:500;font-size:22px;margin:6px 0 0}
-.topic p{margin:0;color:var(--muted)}
-.models{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
-.models li{font-size:14px;background:var(--chip);border-radius:8px;padding:3px 9px}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
-.btn{display:inline-flex;align-items:center;min-height:50px;padding:0 18px;border-radius:12px;font-weight:600;text-decoration:none;font-size:17px}
-.btn.primary{background:var(--accent);color:var(--on-accent)}
-.btn.ghost{border:1.5px solid var(--line);color:var(--ink);background:var(--surface)}
-.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.teacher{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 22px;display:grid;gap:8px}
-.teacher h2{font-size:19px;margin:0}
-.teacher p{margin:0;color:var(--muted);max-width:70ch}
-.teacher a{color:var(--accent);font-weight:600}
-footer{color:var(--muted);font-size:14px}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:20px;line-height:1.5}
+.wrap{max-width:920px;margin:0 auto;padding:28px 20px 80px;display:grid;gap:28px}
+h1{font-size:clamp(30px,5vw,40px);line-height:1.15;margin:0 0 6px}
+.sub{margin:0;color:var(--muted);font-size:20px}
+a:focus-visible,button:focus-visible{outline:4px solid #f59e0b;outline-offset:3px;border-radius:12px}
+
+.howto{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:20px 22px}
+.howto h2{font-size:22px;margin:0 0 10px}
+.howto ol{margin:0;padding:0;list-style:none;display:grid;gap:10px;counter-reset:s}
+.howto li{display:flex;gap:14px;align-items:flex-start;counter-increment:s}
+.howto li::before{content:counter(s);flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:18px}
+.kinds{display:grid;gap:8px;margin-top:16px;font-size:17px;color:var(--muted)}
+
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:700;border-radius:8px;padding:3px 10px;white-space:nowrap;margin-right:6px}
+.b-plan{color:var(--t-plan);background:var(--t-plan-bg)}
+.b-model{color:var(--t-model);background:var(--t-model-bg)}
+.b-map{color:var(--t-map);background:var(--t-map-bg)}
+
+.classes{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.classes a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:110px;border-radius:18px;background:var(--surface);border:3px solid var(--accent);color:var(--accent);text-decoration:none;font-weight:700;font-size:28px;text-align:center;padding:12px}
+.classes a span{font-size:17px;font-weight:500;color:var(--muted)}
+.classes a:hover{background:var(--soft)}
+
+.grade{display:grid;gap:18px;scroll-margin-top:16px}
+.grade-title{display:flex;align-items:center;gap:14px;margin:6px 0 0;font-size:30px}
+.grade-title .pill{background:var(--accent);color:#fff;border-radius:12px;padding:4px 14px}
+.topic{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:20px 22px;display:grid;gap:14px}
+.topic h3{margin:0;font-size:26px}
+.topic .desc{margin:0;color:var(--muted)}
+.items{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.item{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px 18px;border:2px solid var(--line);border-radius:14px;padding:14px 16px;text-decoration:none;color:var(--ink);background:#fff}
+.item:hover{border-color:var(--accent);background:var(--soft)}
+.item .t{font-weight:700;font-size:21px;display:block;margin:6px 0 2px}
+.item .w{color:var(--muted);font-size:17px;display:block}
+.open{display:inline-flex;align-items:center;justify-content:center;min-height:56px;min-width:150px;padding:0 20px;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:20px;white-space:nowrap}
+.totop{justify-self:start;display:inline-flex;align-items:center;min-height:52px;padding:0 18px;border-radius:12px;border:2px solid var(--accent);color:var(--accent);text-decoration:none;font-weight:700;font-size:18px;background:#fff}
+footer{color:var(--muted);font-size:17px;border-top:2px solid var(--line);padding-top:16px}
+@media (max-width:640px){
+  body{font-size:18px}
+  .item{grid-template-columns:1fr}
+  .open{width:100%}
+  .classes a{font-size:24px;min-height:96px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="top">
   <header>
     <h1>Математика в картинках</h1>
-    <p>Интерактивные модели для занятий на планшете: одна тема, пять экранов, кнопки «Дальше» и «Назад». Выберите тему.</p>
+    <p class="sub">Планы уроков и наглядные материалы по математике для 5 и 6 класса.</p>
   </header>
 
-  <section class="topics" aria-label="Темы">
-    <article class="topic">
-      <div class="thumb" aria-hidden="true">
-        <svg viewBox="0 0 330 100"><g style="fill:var(--t1);fill-opacity:.2;stroke:var(--t1);stroke-width:2">
-          <rect x="20" y="30" width="36" height="36" rx="7"/><rect x="62" y="30" width="36" height="36" rx="7"/><rect x="104" y="30" width="36" height="36" rx="7"/></g>
-          <g style="fill:var(--t2);fill-opacity:.2;stroke:var(--t2);stroke-width:2"><rect x="170" y="30" width="36" height="36" rx="7"/><rect x="212" y="30" width="36" height="36" rx="7"/></g>
-          <text x="150" y="56" text-anchor="middle" style="font:700 24px var(--body);fill:var(--ink)">+</text>
-          <g style="font:600 17px var(--body);fill:var(--ink)" text-anchor="middle"><text x="38" y="54">m</text><text x="80" y="54">m</text><text x="122" y="54">m</text><text x="188" y="54">m</text><text x="230" y="54">m</text></g>
-          <text x="322" y="56" text-anchor="end" style="font:700 18px var(--body);fill:var(--ink)">= 5m</text></svg>
-      </div>
-      <div><span class="grade">5 класс</span><h2>Буквенные выражения</h2></div>
-      <p>Подобные слагаемые, вынесение за скобку, задачи в полосках, вычитание через десяток.</p>
-      <ul class="models"><li>Коробки</li><li>Площадь</li><li>Полоски</li><li>Ловушка</li><li>Через 10</li></ul>
-      <div class="actions"><a class="btn primary" href="bukvennye-vyrazheniya/">Открыть модели →</a><a class="btn ghost" href="bukvennye-vyrazheniya/urok-1/">План урока 1 · 90 мин</a><a class="btn ghost" href="bukvennye-vyrazheniya/urok-2/">Урок 2 · уравнения</a></div>
-    </article>
-
-    <article class="topic">
-      <div class="thumb" aria-hidden="true">
-        <svg viewBox="0 0 300 100"><circle cx="70" cy="50" r="34" style="fill:hsl(123,70%,48%)"/><circle cx="230" cy="50" r="34" style="fill:hsl(123,70%,48%)"/>
-          <text x="150" y="60" text-anchor="middle" style="font:700 30px var(--body);fill:var(--ink)">=</text>
-          <text x="70" y="96" text-anchor="middle" style="font:700 15px var(--body);fill:var(--ink)">2 : 3</text><text x="230" y="96" text-anchor="middle" style="font:700 15px var(--body);fill:var(--ink)">4 : 6</text></svg>
-      </div>
-      <div><span class="grade">6 класс</span><h2>Пропорции</h2></div>
-      <p>Отношение как рецепт, цена за одну, три способа найти x, прямая и обратная пропорциональность, ловушки.</p>
-      <ul class="models"><li>Краски</li><li>Цена за 1</li><li>Найди x</li><li>Прямая/обратная</li><li>Ловушки</li></ul>
-      <div class="actions"><a class="btn primary" href="proporcii/">Открыть модели →</a><a class="btn ghost" href="proporcii/uchitel/">Карта для учителя</a><a class="btn ghost" href="proporcii/urok-1/">План урока 1 · 90 мин</a><a class="btn ghost" href="proporcii/urok-2/">Урок 2 · обратная</a></div>
-    </article>
+  <section class="howto" aria-labelledby="howto-h">
+    <h2 id="howto-h">Как пользоваться</h2>
+    <ol>
+      <li><span>Нажмите на нужный класс: <b>5 класс</b> или <b>6 класс</b>.</span></li>
+      <li><span>Выберите материал и нажмите синюю кнопку <b>«Открыть»</b>.</span></li>
+      <li><span>Чтобы вернуться сюда, нажмите синюю кнопку <b>«← На главную»</b> вверху любой страницы.</span></li>
+    </ol>
+    <div class="kinds">
+      <span><span class="badge b-plan">План урока</span>что говорить и какие задачи давать, читать перед уроком</span>
+      <span><span class="badge b-model">Для ученика</span>картинки, которые ученик двигает пальцем на планшете</span>
+      <span><span class="badge b-map">Карта темы</span>на что обратить внимание во всей теме</span>
+    </div>
   </section>
 
-  <section class="teacher">
-    <h2>Для учителя</h2>
-    <p>У каждой темы есть карта: главная идея, на чём держать внимание ученика, типичные ошибки, вопросы, диагностика за 5 минут. По <a href="proporcii/uchitel/#s9">шаблону карты</a> и промпту для ИИ можно подготовить следующую тему.</p>
+  <nav class="classes" aria-label="Выбор класса">
+    <a href="#grade-5">5 класс<span>Буквенные выражения и уравнения</span></a>
+    <a href="#grade-6">6 класс<span>Пропорции</span></a>
+  </nav>
+
+  <!-- 5 класс -->
+  <section class="grade" id="grade-5" aria-labelledby="g5">
+    <h2 class="grade-title" id="g5"><span class="pill">5 класс</span></h2>
+
+    <article class="topic">
+      <h3>Буквенные выражения и уравнения</h3>
+      <p class="desc">Почему 5x + x = 6x, упрощение выражений, задачи с буквами и уравнения. Два урока по 90 минут.</p>
+      <ul class="items">
+        <li><a class="item" href="bukvennye-vyrazheniya/urok-1/">
+          <span><span class="badge b-plan">План урока</span><span class="t">Урок 1. Почему 5x + x = 6x</span><span class="w">Упрощение выражений и задачи. Разбор задачи про яблоки и груши.</span></span>
+          <span class="open">Открыть →</span></a></li>
+        <li><a class="item" href="bukvennye-vyrazheniya/urok-2/">
+          <span><span class="badge b-plan">План урока</span><span class="t">Урок 2. Уравнения</span><span class="w">Стаканчики, весы и полоски. Банк из 47 задач.</span></span>
+          <span class="open">Открыть →</span></a></li>
+        <li><a class="item" href="bukvennye-vyrazheniya/">
+          <span><span class="badge b-model">Для ученика</span><span class="t">Наглядные модели на планшете</span><span class="w">5 экранов: коробки, площадь, полоски, ловушка, вычитание через 10.</span></span>
+          <span class="open">Открыть →</span></a></li>
+      </ul>
+    </article>
+    <a class="totop" href="#top">↑ Наверх, к выбору класса</a>
   </section>
 
-  <footer>Совет: на планшете откройте тему и добавьте её на главный экран (меню браузера → «Добавить на главный экран»).</footer>
+  <!-- 6 класс -->
+  <section class="grade" id="grade-6" aria-labelledby="g6">
+    <h2 class="grade-title" id="g6"><span class="pill">6 класс</span></h2>
+
+    <article class="topic">
+      <h3>Пропорции</h3>
+      <p class="desc">Отношения, пропорции, прямая и обратная пропорциональность. Два урока по 90 минут.</p>
+      <ul class="items">
+        <li><a class="item" href="proporcii/uchitel/">
+          <span><span class="badge b-map">Карта темы</span><span class="t">Пропорции: на что обратить внимание</span><span class="w">Главная идея, типичные ошибки, вопросы ученику. Прочитать один раз перед темой.</span></span>
+          <span class="open">Открыть →</span></a></li>
+        <li><a class="item" href="proporcii/urok-1/">
+          <span><span class="badge b-plan">План урока</span><span class="t">Урок 1. Отношения и пропорции</span><span class="w">Отношение, «сколько на одну», пропорция, связь с процентами.</span></span>
+          <span class="open">Открыть →</span></a></li>
+        <li><a class="item" href="proporcii/urok-2/">
+          <span><span class="badge b-plan">План урока</span><span class="t">Урок 2. Прямая и обратная пропорциональность</span><span class="w">Что остаётся постоянным. Банк из 64 задач.</span></span>
+          <span class="open">Открыть →</span></a></li>
+        <li><a class="item" href="proporcii/">
+          <span><span class="badge b-model">Для ученика</span><span class="t">Наглядные модели на планшете</span><span class="w">5 экранов: краски, цена за одну, найди x, прямая и обратная, ловушки.</span></span>
+          <span class="open">Открыть →</span></a></li>
+      </ul>
+    </article>
+    <a class="totop" href="#top">↑ Наверх, к выбору класса</a>
+  </section>
+
+  <footer>Совет: на планшете ученика откройте нужный материал «Для ученика» и добавьте его на главный экран: меню браузера (три точки) → «Добавить на главный экран».</footer>
 </div>
 </body>
 </html>
