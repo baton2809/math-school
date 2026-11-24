@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Урок 2. Прямая и обратная пропорциональность — план и банк задач</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: одна колонка ~780px. Сверху «подготовка за 10 минут» и лента времени, ниже блоки урока карточками с бейджем времени. Печатается на A4. */
+:root{--bg:#f4f6fa;--surface:#fff;--ink:#1b2333;--muted:#5c6577;--line:#d9dee8;--accent:#2c56d8;--chip:#e8edf8;
+--k-check:#6b7a99;--k-explain:#2c56d8;--k-practice:#d9771c;--k-pause:#1f9a6e;--k-final:#8a4fd1;--good:#1f9a6e;--bad:#c9373b;--blue:#2563eb;--yellow:#eab308;
+--display:"Unbounded","Golos Text",system-ui,sans-serif;--body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10141b;--surface:#1a202b;--ink:#e7ebf3;--muted:#9aa3b5;--line:#2e3646;--accent:#7b9cff;--chip:#232c3c;
+--k-check:#9aa8c4;--k-explain:#7b9cff;--k-practice:#f2a352;--k-pause:#4fcf9d;--k-final:#b58cf0;--good:#4fcf9d;--bad:#ff6b6e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10141b;--surface:#1a202b;--ink:#e7ebf3;--muted:#9aa3b5;--line:#2e3646;--accent:#7b9cff;--chip:#232c3c;
+--k-check:#9aa8c4;--k-explain:#7b9cff;--k-practice:#f2a352;--k-pause:#4fcf9d;--k-final:#b58cf0;--good:#4fcf9d;--bad:#ff6b6e;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px 64px;display:grid;gap:22px}
+a{color:var(--accent)}
+.back{color:var(--muted);text-decoration:none;font-size:15px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.6vw,32px);line-height:1.2;margin:6px 0 6px;text-wrap:balance}
+.kicker{margin:0;color:var(--muted);font-size:14px}
+.lead{margin:0;color:var(--muted);max-width:68ch}
+h2{font-family:var(--display);font-weight:500;font-size:21px;margin:10px 0 0;text-wrap:balance}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.prep{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
+.prep h3{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.prep ol,.prep ul{margin:0;padding-left:20px}
+.prep li{margin:3px 0}
+.phrases li{font-weight:600}
+.goal{margin:0 0 12px;font-size:18px}
+.scroll{overflow-x:auto}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--body)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+table{border-collapse:collapse;width:100%;font-size:15px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.block{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--kc);border-radius:14px;padding:16px 20px;display:grid;gap:10px;break-inside:avoid}
+.bhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px}
+.time{font-variant-numeric:tabular-nums;font-weight:700;color:var(--kc);font-size:15px;white-space:nowrap}
+.dur{background:var(--kc);color:#fff;border-radius:999px;padding:1px 10px;font-size:13px;font-weight:700}
+:root[data-theme="dark"] .dur{color:#0e1320}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dur{color:#0e1320}}
+.bhead h3{margin:0;font-size:19px;flex:1 1 280px}
+.goalline{margin:0;color:var(--muted)}
+.say{margin:0;padding:10px 14px;background:var(--chip);border-radius:10px;display:grid;gap:4px}
+.say p{margin:0}
+.say p::before{content:"— ";color:var(--muted)}
+.lbl{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;margin:4px 0 0}
+.tasks{margin:0;padding-left:22px;display:grid;gap:6px}
+.ans{color:var(--good);font-weight:600;white-space:nowrap}
+.watch{margin:0;padding:8px 12px;border-left:3px solid var(--bad);background:color-mix(in srgb,var(--bad) 8%,transparent);border-radius:0 8px 8px 0;font-size:15.5px}
+.watch b{color:var(--bad)}
+.tab{font-size:15px;color:var(--muted)}
+figure{margin:4px 0 0}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:4px}
+.k-check{--kc:var(--k-check)}.k-explain{--kc:var(--k-explain)}.k-practice{--kc:var(--k-practice)}.k-pause{--kc:var(--k-pause)}.k-final{--kc:var(--k-final)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+summary{cursor:pointer;font-weight:600}
+pre{white-space:pre-wrap;font-size:14px;background:var(--chip);border-radius:10px;padding:12px}
+.note{font-size:14px;color:var(--muted)}
+@media (max-width:640px){.prep{grid-template-columns:1fr}.block{padding:14px}}
+@media print{body{background:#fff;font-size:12.5pt}.wrap{max-width:none;padding:0}.back,details{display:none}.card,.block{border-color:#bbb}}
+
+.bank h3{font-size:17px;margin:20px 0 6px}.bank ol{margin:0;padding-left:24px;display:grid;gap:5px}.bank li{max-width:72ch}</style>
+</head>
+<body>
+<div class="wrap">
+<div>
+  <a class="back" href="../../">← Все темы</a> · <a class="back" href="../urok-1/">Урок 1</a> · <a class="back" href="../uchitel/">Карта темы</a> · <a class="back" href="../">Модели на планшете</a>
+  <p class="kicker" style="margin-top:14px">6 класс · после урока «Отношения и пропорции» · 90 минут</p>
+  <h1>Урок 2. Прямая и обратная пропорциональность</h1>
+  <p class="lead">План для подготовки за 10 минут и <a href="#bank">банк задач</a> внизу страницы: больше 60 заданий без ответов, разбитых по типам. Учитель выбирает нужные под ученика.</p>
+</div>
+
+<section class="card">
+  <p class="goal"><b>Цель урока:</b> ученик отличает прямую пропорциональность от обратной по тому, что остаётся постоянным, решает задачи на обратную пропорциональность двумя способами и замечает случаи, когда пропорциональности нет вовсе.</p>
+  <div class="prep">
+    <div>
+      <h3>Подготовка за 10 минут</h3>
+      <ol>
+        <li>Пробежать ленту времени (2 мин).</li>
+        <li>Выбрать из <a href="#bank">банка задач</a> 5–6 заданий под ученика и 3 на дом.</li>
+        <li>Открыть на планшете <a href="../#4">экран 4 «Прямая/обратная»</a> и <a href="../#5">экран 5 «Ловушки»</a>.</li>
+        <li>24 одинаковых квадратика (кубики, фишки, листочки) для «прямоугольника из 24».</li>
+        <li>Лист в клетку для таблиц со стрелками.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Три фразы урока</h3>
+      <ul class="phrases">
+        <li>«Прямая: одно ×2, другое ×2. Обратная: одно ×2, другое ÷2».</li>
+        <li>«При обратной пропорциональности постоянно произведение».</li>
+        <li>«Сначала спроси: что здесь не меняется?»</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<h2>Лента времени</h2>
+<section class="card">
+  <div class="scroll"><svg viewBox="0 0 760 118" role="img" aria-label="Лента урока на 90 минут"><g id="tl"></g></svg></div>
+  <div class="legend"><span><i style="background:var(--k-check)"></i>проверка</span><span><i style="background:var(--k-explain)"></i>объяснение</span><span><i style="background:var(--k-practice)"></i>практика</span><span><i style="background:var(--k-pause)"></i>пауза</span><span><i style="background:var(--k-final)"></i>итог</span></div>
+  <div class="scroll" style="margin-top:10px"><table>
+    <thead><tr><th>Время</th><th>Блок</th><th>Планшет</th></tr></thead>
+    <tbody id="tlt"></tbody>
+  </table></div>
+</section>
+
+<!-- 1 -->
+<section class="block k-check">
+  <div class="bhead"><span class="time">0:00–0:07</span><span class="dur">7 мин</span><h3>1. Разминка: прямая пропорциональность</h3></div>
+  <p class="goalline">Вспомнить «во сколько раз» и единичную величину из урока 1. Проверить домашнее задание.</p>
+  <div class="say"><p>Устно, быстро. Если количество стало в 3 раза больше, что стало со стоимостью?</p></div>
+  <ol class="tasks">
+    <li>5 карандашей стоят 60 ₽. Сколько стоят 15? <span class="ans">180 ₽</span></li>
+    <li>Решите пропорцию x : 6 = 10 : 15. <span class="ans">4</span></li>
+    <li>За 3 ч пешеход прошёл 12 км. Сколько он пройдёт за 2 ч? <span class="ans">8 км</span></li>
+  </ol>
+  <p class="watch"><b>Если ученик снова считает разностями</b> («на 2 часа меньше, значит на 2 км меньше»), сначала 3 минуты на таблицу со стрелками из урока 1. Без этого обратная пропорциональность не ляжет.</p>
+</section>
+
+<!-- 2 -->
+<section class="block k-explain">
+  <div class="bhead"><span class="time">0:07–0:20</span><span class="dur">13 мин</span><h3>2. Когда величины меняются в разные стороны</h3></div>
+  <p class="goalline">Ученик сам замечает, что бывают величины, где «больше одного» означает «меньше другого» во столько же раз.</p>
+  <div class="say">
+    <p>Путь от дома до бабушки — 120 км. Если ехать со скоростью 30 км/ч, сколько часов в пути? А если 60 км/ч?</p>
+    <p>Скорость стала в 2 раза больше. А время? Заполним таблицу и нарисуем стрелки.</p>
+    <p>Стрелки смотрят в разные стороны: сверху ×2, снизу ÷2. Такие величины называют обратно пропорциональными.</p>
+    <p>Две величины называют обратно пропорциональными, если при увеличении одной из них в несколько раз другая уменьшается во столько же раз.</p>
+  </div>
+  <figure><svg viewBox="0 0 760 175" role="img" aria-label="Таблица скорость и время для пути 120 км со стрелками в разные стороны"><g id="rt"></g></svg>
+  <figcaption>Рис. 1. Путь 120 км. Сверху стрелки «умножить», снизу — «разделить» на то же число. В уроке 1 стрелки были одинаковыми.</figcaption></figure>
+  <ol class="tasks">
+    <li>Заполните таблицу: путь 120 км, скорость 10, 20, 30, 40, 60 км/ч. <span class="ans">12; 6; 4; 3; 2 ч</span></li>
+    <li>4 рабочих строят забор за 6 дней. За сколько дней построят 8 рабочих? 2 рабочих? <span class="ans">3; 12</span></li>
+  </ol>
+  <p class="watch"><b>Ждите:</b> «рабочих больше — дней больше», ответ 12 для 8 рабочих. Вопрос: «Больше людей — работа пойдёт быстрее или медленнее?» Пусть сначала ответит словами, потом считает.</p>
+  <p class="tab">Планшет: <a href="../#4">экран 4 «Прямая/обратная»</a>, задача «Дорога: 120 км».</p>
+</section>
+
+<!-- 3 -->
+<section class="block k-explain">
+  <div class="bhead"><span class="time">0:20–0:35</span><span class="dur">15 мин</span><h3>3. Что остаётся постоянным: прямоугольник из 24</h3></div>
+  <p class="goalline">Главный признак: при прямой пропорциональности постоянно частное, при обратной — произведение.</p>
+  <div class="say">
+    <p>(Дайте 24 квадратика.) Сложи из всех квадратиков прямоугольник. А теперь другой. Ещё другой.</p>
+    <p>Длина выросла, а ширина? Во сколько раз? А что не изменилось? Площадь — всегда 24.</p>
+    <p>Скорость × время = путь, а путь у нас всегда 120. Рабочие × дни = вся работа, она не меняется. Это то же самое: произведение постоянно.</p>
+    <p>При прямой пропорциональности постоянно частное: цена = стоимость : количество.</p>
+  </div>
+  <figure><svg viewBox="0 0 760 200" role="img" aria-label="Три прямоугольника площадью 24: 12 на 2, 8 на 3, 6 на 4"><g id="rects"></g></svg>
+  <figcaption>Рис. 2. Длина ×2 — ширина ÷2, а площадь та же. Обратная пропорциональность — это прямоугольник, который меняет форму, но не площадь.</figcaption></figure>
+  <figure><svg viewBox="0 0 760 330" role="img" aria-label="Графики: прямая пропорциональность — прямая линия, обратная — кривая"><g id="chart"></g></svg>
+  <figcaption>Рис. 3. Те же величины на графике. Прямая пропорциональность — прямая через начало координат, обратная — кривая, которая быстро падает, а потом медленно приближается к оси. (Для сильного ученика или на будущее.)</figcaption></figure>
+  <figure><div class="scroll"><table>
+    <thead><tr><th></th><th>Прямая</th><th>Обратная</th><th>Ни то ни другое</th></tr></thead>
+    <tbody>
+      <tr><td>Одна ×2, тогда другая…</td><td>×2</td><td>÷2</td><td>как-то иначе</td></tr>
+      <tr><td>Что постоянно</td><td>частное (цена, скорость)</td><td>произведение (путь, работа, площадь)</td><td>ни частное, ни произведение</td></tr>
+      <tr><td>Пример</td><td>количество тетрадей и стоимость</td><td>скорость и время на одном пути</td><td>возраст и рост; пройдено и осталось</td></tr>
+      <tr><td>Стрелки в таблице</td><td>в одну сторону</td><td>в разные стороны</td><td>не работают</td></tr>
+    </tbody>
+  </table></div><figcaption>Рис. 4. Сводная таблица для тетради ученика.</figcaption></figure>
+  <p class="watch"><b>Главная ловушка урока:</b> «одна растёт, другая уменьшается — значит обратная». Контрпример: путь 20 км, пройдено 5 км — осталось 15; пройдено 10 — осталось 10. Пройденное ×2, а оставшееся не ÷2. Постоянна сумма, а не произведение.</p>
+</section>
+
+<!-- 4 -->
+<section class="block k-pause">
+  <div class="bhead"><span class="time">0:35–0:40</span><span class="dur">5 мин</span><h3>4. Пауза</h3></div>
+  <p class="goalline">Встать, вода. Устная игра «Прямая или обратная?»: учитель называет пару величин, ученик поднимает руки вверх (прямая) или в стороны (обратная), а если ни то ни другое — хлопает.</p>
+</section>
+
+<!-- 5 -->
+<section class="block k-explain">
+  <div class="bhead"><span class="time">0:40–0:55</span><span class="dur">15 мин</span><h3>5. Решение задач: два способа</h3></div>
+  <p class="goalline">Научить решать задачи на обратную пропорциональность: через «всю работу» и пропорцией с обратным отношением.</p>
+  <div class="say">
+    <p>6 рабочих выполняют работу за 12 дней. За сколько дней выполнят её 9 рабочих?</p>
+    <p>Способ 1: сколько всего «рабочих дней» в этой работе? 6 · 12 = 72. Если рабочих 9, то 72 : 9 = 8 дней.</p>
+    <p>Способ 2: таблица со стрелками. Рабочих стало больше в 9 : 6 = 1,5 раза — значит дней меньше в 1,5 раза.</p>
+    <p>Пропорцией: одно отношение берём перевёрнутым — 6 : 9 = x : 12. Почему перевёрнутым? Потому что стрелки смотрят в разные стороны.</p>
+  </div>
+  <figure><svg viewBox="0 0 760 210" role="img" aria-label="Таблица задачи: рабочие 6 и 9, дни 12 и x, стрелки в разные стороны, пропорция"><g id="solve"></g></svg>
+  <figcaption>Рис. 5. Запись задачи. Стрелки в разные стороны — значит в пропорции одно отношение переворачиваем.</figcaption></figure>
+  <ol class="tasks">
+    <li>6 рабочих выполняют работу за 12 дней. За сколько дней выполнят 9 рабочих? <span class="ans">8</span></li>
+    <li>Автомобиль ехал 4 ч со скоростью 60 км/ч. За сколько часов он проедет этот путь со скоростью 80 км/ч? <span class="ans">3 ч</span></li>
+    <li>Запаса корма хватит 20 коровам на 30 дней. На сколько дней хватит 24 коровам? <span class="ans">25</span></li>
+    <li>На покупку 12 тетрадей по 15 ₽ хватило денег. Сколько тетрадей по 20 ₽ можно купить на те же деньги? <span class="ans">9</span></li>
+  </ol>
+  <p class="watch"><b>Ждите:</b> пропорция составлена как для прямой: 6 : 9 = 12 : x → x = 18. Проверка смыслом: «Рабочих больше — а дней стало больше? Так бывает?» Затем способ 1 как проверка: 9 · 18 = 162 ≠ 72.</p>
+</section>
+
+<!-- 6 -->
+<section class="block k-practice">
+  <div class="bhead"><span class="time">0:55–1:10</span><span class="dur">15 мин</span><h3>6. Прямая, обратная или ни то ни другое?</h3></div>
+  <p class="goalline">Ученик сначала определяет тип зависимости и только потом решает. Это главный навык урока.</p>
+  <div class="say">
+    <p>Не решай сразу. Сначала скажи: что здесь не меняется? Потом — прямая, обратная или ни то ни другое.</p>
+  </div>
+  <p class="lbl">Задания: возьмите 6–8 из раздела <a href="#bank-a">«Определите тип»</a> и 3–4 из <a href="#bank-d">«Смешанные задачи»</a> банка ниже.</p>
+  <p class="watch"><b>Ждите:</b> длина стороны квадрата и его площадь — «прямая». Проверка: сторона 2 → площадь 4; сторона 4 → площадь 16. Сторона ×2, площадь ×4: не прямая.</p>
+  <p class="tab">Планшет: <a href="../#5">экран 5 «Ловушки»</a>.</p>
+</section>
+
+<!-- 7 -->
+<section class="block k-practice">
+  <div class="bhead"><span class="time">1:10–1:22</span><span class="dur">12 мин</span><h3>7. Самостоятельная работа: три уровня</h3></div>
+  <p class="goalline">Ученик решает молча. Учитель отмечает, на каком шаге запнулся: тип зависимости, запись или счёт.</p>
+  <ol class="tasks">
+    <li><b>А.</b> 3 трактора вспахали поле за 10 ч. За сколько часов вспашут это поле 5 тракторов? <span class="ans">6 ч</span></li>
+    <li><b>Б.</b> Для перевозки груза нужно 15 машин грузоподъёмностью 4 т. Сколько нужно машин грузоподъёмностью 6 т? <span class="ans">10</span></li>
+    <li><b>В.</b> Запаса продуктов хватило бы 30 туристам на 12 дней. Через 2 дня 10 туристов ушли. На сколько дней хватит оставшихся продуктов? <span class="ans">15</span></li>
+  </ol>
+  <p class="watch"><b>В задаче В</b> ошибка — 30 · 12 : 20 = 18, забыли про 2 прошедших дня. Подсказка: «Сколько "туристо-дней" еды осталось после двух дней?»</p>
+</section>
+
+<!-- 8 -->
+<section class="block k-final">
+  <div class="bhead"><span class="time">1:22–1:30</span><span class="dur">8 мин</span><h3>8. Итог и проверка на выходе</h3></div>
+  <ol class="tasks">
+    <li>Приведите свой пример прямой, обратной пропорциональности и такой зависимости, которая ни то ни другое.</li>
+    <li>8 маляров покрасят забор за 3 ч. За сколько часов покрасят 6 маляров? <span class="ans">4 ч</span></li>
+  </ol>
+  <p class="goalline">Если ученик правильно назвал, что постоянно в каждом своём примере, урок достиг цели. Домашнее задание: 3 задачи из банка, одна из них — из раздела «Ловушки».</p>
+</section>
+
+<h2 id="bank">Банк задач (без ответов)</h2>
+<section class="card bank">
+  <p class="goalline" style="margin:0">Задачи для выбора: на урок, на дом, на проверочную. Числа подобраны так, чтобы ответы выходили удобными. Внутри разделов задачи идут от простых к сложным.</p>
+
+  <h3 id="bank-a">А. Определите тип зависимости: прямая, обратная или ни то ни другое</h3>
+  <ol>
+    <li>Количество купленных тетрадей и их стоимость (цена одинаковая).</li>
+    <li>Скорость поезда и время, за которое он проходит один и тот же путь.</li>
+    <li>Число рабочих и время, за которое они выполнят одну и ту же работу.</li>
+    <li>Длина стороны квадрата и его периметр.</li>
+    <li>Длина стороны квадрата и его площадь.</li>
+    <li>Возраст человека и его рост.</li>
+    <li>Число детей и количество конфет у каждого, если 60 конфет делят поровну.</li>
+    <li>Пройденный путь и оставшийся путь, если весь путь 100 км.</li>
+    <li>Длина и ширина прямоугольника площадью 36 см².</li>
+    <li>Цена товара и количество, которое можно купить на 500 ₽.</li>
+    <li>Время работы насоса и количество выкачанной воды.</li>
+    <li>Количество кранов и время наполнения бассейна.</li>
+    <li>Масса одного пакета и число пакетов, в которые расфасовали 12 кг крупы.</li>
+    <li>Длина шага и количество шагов на одном и том же расстоянии.</li>
+    <li>Количество страниц, которые ученик читает в день, и число дней, за которые он прочтёт книгу.</li>
+    <li>Масса товара и его стоимость.</li>
+    <li>Число зубцов шестерёнки и число её оборотов, если она сцеплена с другой шестерёнкой, которая сделала 100 оборотов.</li>
+    <li>Время, прошедшее с начала урока, и время, оставшееся до конца урока.</li>
+  </ol>
+
+  <h3>Б. Заполните таблицу и укажите, что в ней постоянно</h3>
+  <ol>
+    <li>Площадь прямоугольника 48 см². Длина: 1, 2, 3, 4, 6, 8, 12, 16 см. Найдите ширину.</li>
+    <li>Путь 120 км. Скорость: 10, 20, 30, 40, 60 км/ч. Найдите время.</li>
+    <li>36 конфет делят поровну. Детей: 2, 3, 4, 6, 9, 12. Сколько конфет у каждого?</li>
+    <li>На 600 ₽ покупают одинаковые ручки. Цена ручки: 20, 25, 30, 40, 50, 60 ₽. Сколько ручек можно купить?</li>
+    <li>Работа занимает 24 рабочих дня. Рабочих: 1, 2, 3, 4, 6, 8. Сколько дней?</li>
+    <li>Придумайте таблицу из 5 пар чисел, которые обратно пропорциональны, и таблицу из 5 пар, которые прямо пропорциональны.</li>
+  </ol>
+
+  <h3>В. Задачи на обратную пропорциональность</h3>
+  <ol>
+    <li>Велосипедист проехал путь за 3 ч со скоростью 12 км/ч. Сколько времени займёт этот путь у пешехода, идущего со скоростью 4 км/ч?</li>
+    <li>5 насосов выкачивают воду из котлована за 3 ч. Сколько нужно насосов, чтобы выкачать воду за 1 ч?</li>
+    <li>Ткани хватит на 30 платьев, если на каждое платье расходовать 3 м. Сколько платьев можно сшить, если на каждое расходовать 2,5 м?</li>
+    <li>Шаг отца 80 см, шаг сына 50 см. Отец прошёл 200 шагов. Сколько шагов сделает сын на том же пути?</li>
+    <li>Колесо с окружностью 2 м сделало на некотором пути 150 оборотов. Сколько оборотов на том же пути сделает колесо с окружностью 1,5 м?</li>
+    <li>Крупу расфасовали в 24 пакета по 0,5 кг. Сколько получится пакетов, если фасовать по 0,4 кг?</li>
+    <li>Бригада из 8 человек может отремонтировать дорогу за 15 дней. Сколько человек нужно, чтобы отремонтировать её за 10 дней?</li>
+    <li>Поезд проходит перегон за 3 ч со скоростью 70 км/ч. С какой скоростью он должен идти, чтобы пройти перегон за 2,5 ч?</li>
+    <li>12 мастеров изготовят партию деталей за 10 ч. За сколько часов эту партию изготовят 15 мастеров?</li>
+    <li>Чтобы набрать текст, нужно 40 страниц по 30 строк. Сколько потребуется страниц, если на каждой будет 25 строк?</li>
+    <li>На 4 одинаковых полках стоят книги, на каждой по 45. Книги переставили на 6 полок поровну. Сколько книг на каждой полке?</li>
+    <li>Двое рабочих могут сделать работу за 15 дней. За сколько дней сделают её 5 рабочих?</li>
+    <li>Если ехать со скоростью 75 км/ч, дорога займёт 4 ч. Какую скорость нужно держать, чтобы доехать за 3 ч?</li>
+    <li>Бассейн наполняется через 3 одинаковые трубы за 8 ч. За сколько часов наполнится бассейн через 4 такие трубы?</li>
+  </ol>
+
+  <h3 id="bank-d">Г. Смешанные задачи: сначала определите тип</h3>
+  <ol>
+    <li>4 кг яблок стоят 360 ₽. Сколько стоят 6 кг?</li>
+    <li>3 трактора вспахали поле за 10 ч. За сколько часов вспашут это поле 5 тракторов?</li>
+    <li>Турист прошёл 12 км за 3 ч. Сколько он пройдёт за 5 ч с той же скоростью?</li>
+    <li>Из 20 кг молока получили 3 кг творога. Сколько творога получится из 60 кг молока?</li>
+    <li>3 маляра красят забор 8 ч. Сколько маляров нужно, чтобы покрасить его за 6 ч?</li>
+    <li>5 одинаковых ручек стоят 75 ₽. Сколько таких ручек можно купить на 120 ₽?</li>
+    <li>Маленькая шестерёнка имеет 12 зубцов, большая — 36. Сколько оборотов сделает большая, когда маленькая сделает 60 оборотов?</li>
+    <li>Автомобиль расходует 8 л бензина на 100 км. Сколько бензина понадобится на 350 км?</li>
+    <li>Для приготовления варенья на 2 кг ягод берут 3 кг сахара. Сколько сахара нужно на 5 кг ягод?</li>
+    <li>8 одинаковых ящиков вмещают по 15 кг яблок. Сколько нужно ящиков вместимостью 20 кг, чтобы разложить те же яблоки?</li>
+  </ol>
+
+  <h3>Д. Задачи повышенной сложности</h3>
+  <ol>
+    <li>6 рабочих могли бы выполнить работу за 10 дней. Через 2 дня к ним присоединились ещё 2 рабочих. За сколько дней всего была выполнена работа?</li>
+    <li>Запаса продуктов хватило бы 30 туристам на 12 дней. Через 2 дня 10 туристов ушли из группы. На сколько дней хватит оставшихся продуктов оставшимся туристам?</li>
+    <li>Если поезд увеличит скорость на 20 км/ч, он пройдёт путь за 3 ч вместо 4 ч. Найдите путь.</li>
+    <li>Две шестерёнки сцеплены: у первой 24 зубца, у второй 18. Первая сделала 30 оборотов. Сколько оборотов сделала вторая?</li>
+    <li>12 рабочих могут выполнить работу за 15 дней. Через 5 дней часть рабочих перевели на другой объект, и оставшиеся закончили работу за 20 дней. Сколько рабочих перевели?</li>
+    <li>Скорость велосипедиста в 3 раза больше скорости пешехода. Пешеход прошёл путь из A в B за 4,5 ч. За сколько часов этот путь проедет велосипедист?</li>
+    <li>Длину прямоугольника увеличили в 3 раза. Как нужно изменить ширину, чтобы площадь не изменилась? А чтобы площадь увеличилась в 1,5 раза?</li>
+  </ol>
+
+  <h3>Е. Ловушки: здесь нет пропорциональности</h3>
+  <ol>
+    <li>Оркестр из 5 музыкантов играет пьесу 10 минут. Сколько минут будет играть эту пьесу оркестр из 10 музыкантов?</li>
+    <li>Чтобы сварить одно яйцо, нужно 10 минут. Сколько минут нужно, чтобы сварить 3 яйца в одной кастрюле?</li>
+    <li>Турист идёт к деревне за 20 км. Пройденный путь и оставшийся путь — обратно пропорциональны? Объясните.</li>
+    <li>2 землекопа за 2 ч выкопают 2 м канавы. Сколько землекопов за 5 ч выкопают 5 м канавы?</li>
+    <li>Полторы курицы за полтора дня сносят полтора яйца. Сколько яиц снесут 3 курицы за 3 дня?</li>
+    <li>Если один художник рисует картину 3 дня, за сколько дней нарисуют одну картину 3 художника?</li>
+  </ol>
+
+  <h3>Ж. Придумай сам</h3>
+  <ol>
+    <li>Придумайте задачу про обратную пропорциональность из своей жизни (спорт, игры, дорога в школу) и решите её.</li>
+    <li>Придумайте задачу, которая выглядит как обратная пропорциональность, но ею не является.</li>
+    <li>Составьте одну задачу, где обе величины меняются в одну сторону, и одну, где в разные, с одинаковыми числами.</li>
+  </ol>
+</section>
+
+<details>
+  <summary>Промпт, по которому собран этот план (для следующих тем)</summary>
+<pre>Ты опытный методист по математике. Составь план урока для учителя-профессионала,
+который подготовится по нему за 10 минут.
+
+Вводные: тема «[Прямая и обратная пропорциональность]», [6] класс, учебник [Виленкин].
+Это [второй] урок по теме; на прошлом прошли [отношения и пропорции].
+Длительность [90] минут. Есть планшет с моделями: [ссылка и номера экранов].
+
+Нужно:
+1. «Подготовка за 10 минут»: цель, 3 главные фразы урока, что приготовить.
+2. Лента времени: блоки с минутами, сумма ровно [90].
+3. По каждому блоку: время и цель; 2–4 реплики учителя; задачи с ответами;
+   какую ошибку ждать и что делать; экран планшета.
+4. Ключевая идея: прямая — постоянно частное, обратная — постоянно произведение;
+   ловушка «одна растёт, другая падает — значит обратная».
+5. Рисунки, как в учебнике: таблица со стрелками в разные стороны,
+   прямоугольники постоянной площади, графики прямой и обратной,
+   сводная таблица «прямая / обратная / ни то ни другое».
+6. Отдельно банк задач БЕЗ ответов, 50+ штук, по разделам:
+   определить тип, заполнить таблицу, задачи на обратную, смешанные,
+   повышенной сложности, ловушки, «придумай сам». Числа подобрать так,
+   чтобы ответы выходили удобными.
+7. Терминология как в учебнике, арифметика проверена, коротко и по делу.</pre>
+</details>
+
+<p class="note">Почему такой порядок и какие ошибки типичны — в <a href="../uchitel/">карте темы «Пропорции»</a>. Предыдущий урок: <a href="../urok-1/">Урок 1. Отношения и пропорции</a>.</p>
+</div>
+
+<script>
+(function(){
+  const B=[['Разминка',0,7,'check',''],['Разные стороны',7,20,'explain','4'],['Что постоянно',20,35,'explain','4'],['Пауза',35,40,'pause',''],
+    ['Два способа',40,55,'explain',''],['Тип зависимости',55,70,'practice','5'],['Самост.',70,82,'practice',''],['Итог',82,90,'final','']];
+  const NAMES=['Разминка: прямая пропорциональность','Когда величины меняются в разные стороны','Что остаётся постоянным: прямоугольник из 24','Пауза','Решение задач: два способа','Прямая, обратная или ни то ни другое?','Самостоятельная работа','Итог и проверка на выходе'];
+  const X=m=>10+m*(740/90), hm=m=>`${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`;
+  let g='';
+  for(let t=0;t<=90;t+=10) g+=`<line x1="${X(t)}" x2="${X(t)}" y1="18" y2="76" style="stroke:var(--line)"/><text x="${X(t)}" y="98" text-anchor="middle" style="font:12.5px var(--body);fill:var(--muted)">${t}</text>`;
+  B.forEach((b,i)=>{ const w=X(b[2])-X(b[1]); g+=`<rect x="${X(b[1])+1}" y="24" width="${w-2}" height="46" rx="5" style="fill:var(--k-${b[3]})"><title>${hm(b[1])}–${hm(b[2])}: ${NAMES[i]}</title></rect>`+
+     `<text x="${X(b[1])+w/2}" y="${w>40?44:52}" text-anchor="middle" style="font:700 15px var(--body);fill:#fff">${i+1}</text>`+
+     (w>60?`<text x="${X(b[1])+w/2}" y="62" text-anchor="middle" style="font:500 11.5px var(--body);fill:#fff">${b[2]-b[1]} мин</text>`:''); });
+  document.getElementById('tl').innerHTML=g;
+  document.getElementById('tlt').innerHTML=B.map((b,i)=>`<tr><td style="white-space:nowrap">${hm(b[1])}–${hm(b[2])} · <b>${b[2]-b[1]} мин</b></td><td>${i+1}. ${NAMES[i]}</td><td>${b[4]?`<a href="../#${b[4]}">экран ${b[4]}</a>`:'—'}</td></tr>`).join('');
+
+  const BL='var(--k-explain)', OR='var(--k-practice)', GR='var(--k-pause)';
+  const T=(x,y,t,st,a)=>`<text x="${x}" y="${y}" ${a===false?'':'text-anchor="middle"'} style="font:${st} var(--body);fill:var(--ink)">${t}</text>`;
+  // рис 1: таблица со стрелками
+  const v=[10,20,30,40,60], t=v.map(s=>120/s), x0=170, cw=112; let r='';
+  r+=`<text x="0" y="66" style="font:600 14px var(--body);fill:var(--muted)">Скорость, км/ч</text><text x="0" y="116" style="font:600 14px var(--body);fill:var(--muted)">Время, ч</text>`;
+  v.forEach((s,i)=>{ const x=x0+i*cw; r+=`<rect x="${x}" y="42" width="${cw-8}" height="38" rx="6" style="fill:var(--chip);stroke:var(--line)"/><rect x="${x}" y="92" width="${cw-8}" height="38" rx="6" style="fill:var(--chip);stroke:var(--line)"/>`+T(x+(cw-8)/2,68,s,'700 18px')+T(x+(cw-8)/2,118,t[i],'700 18px'); });
+  const arc=(i,j,lab,top,col)=>{ const a=x0+i*cw+(cw-8)/2, b=x0+j*cw+(cw-8)/2, m=(a+b)/2;
+    return top ? `<path d="M${a} 38 Q${m} 8 ${b-4} 36" style="fill:none;stroke:${col};stroke-width:2"/><text x="${m}" y="18" text-anchor="middle" style="font:700 15px var(--body);fill:${col}">${lab}</text>`
+               : `<path d="M${a} 134 Q${m} 164 ${b-4} 136" style="fill:none;stroke:${col};stroke-width:2"/><text x="${m}" y="168" text-anchor="middle" style="font:700 15px var(--body);fill:${col}">${lab}</text>`; };
+  r+=arc(0,1,'×2',true,BL)+arc(0,1,'÷2',false,OR)+arc(1,4,'×3',true,BL)+arc(1,4,'÷3',false,OR);
+  document.getElementById('rt').innerHTML=r;
+  // рис 2: прямоугольники 24
+  const u=17; let q=''; const R=[[12,2],[8,3],[6,4]]; let cx=10;
+  R.forEach(([w,h],k)=>{ const y=20+(4-h)*u; const col=[BL,OR,GR][k];
+    q+=`<rect x="${cx}" y="${y}" width="${w*u}" height="${h*u}" style="fill:${col};fill-opacity:.16;stroke:${col};stroke-width:2"/>`;
+    for(let i=1;i<w;i++) q+=`<line x1="${cx+i*u}" y1="${y}" x2="${cx+i*u}" y2="${y+h*u}" style="stroke:${col};stroke-opacity:.35"/>`;
+    for(let j=1;j<h;j++) q+=`<line x1="${cx}" y1="${y+j*u}" x2="${cx+w*u}" y2="${y+j*u}" style="stroke:${col};stroke-opacity:.35"/>`;
+    q+=T(cx+w*u/2,20+4*u+26,`${w} × ${h} = 24`,'700 17px');
+    q+=`<text x="${cx+w*u/2}" y="${20+4*u+48}" text-anchor="middle" style="font:13px var(--body);fill:var(--muted)">длина ${w}, ширина ${h}</text>`;
+    cx+=w*u+44; });
+  q+=`<text x="10" y="188" style="font:600 14px var(--body);fill:var(--muted)">12 → 6: длина ÷2, ширина 2 → 4: ×2. Площадь всё время 24.</text>`;
+  document.getElementById('rects').innerHTML=q;
+  // рис 3: графики
+  const ox=70, oy=290, sx=70, sy=10; let c='';
+  for(let i=0;i<=8;i++) c+=`<line x1="${ox+i*sx}" y1="${oy}" x2="${ox+i*sx}" y2="${oy-250}" style="stroke:var(--line)"/><text x="${ox+i*sx}" y="${oy+20}" text-anchor="middle" style="font:12.5px var(--body);fill:var(--muted)">${i}</text>`;
+  for(let j=0;j<=24;j+=6) c+=`<line x1="${ox}" y1="${oy-j*sy}" x2="${ox+8*sx}" y2="${oy-j*sy}" style="stroke:var(--line)"/><text x="${ox-10}" y="${oy-j*sy+4}" text-anchor="end" style="font:12.5px var(--body);fill:var(--muted)">${j}</text>`;
+  c+=`<line x1="${ox}" y1="${oy}" x2="${ox+8*sx+10}" y2="${oy}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${ox}" y1="${oy}" x2="${ox}" y2="${oy-260}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+  c+=`<line x1="${ox}" y1="${oy}" x2="${ox+8*sx}" y2="${oy-24*sy}" style="stroke:${BL};stroke-width:2.6"/>`;
+  let p=''; for(let x=1;x<=8.001;x+=0.1) p+=`${p?'L':'M'}${(ox+x*sx).toFixed(1)} ${(oy-24/x*sy).toFixed(1)}`;
+  c+=`<path d="${p}" style="fill:none;stroke:${OR};stroke-width:2.6"/>`;
+  [1,2,3,4,6,8].forEach(x=>{ c+=`<circle cx="${ox+x*sx}" cy="${oy-24/x*sy}" r="5" style="fill:${OR}"/><circle cx="${ox+x*sx}" cy="${oy-3*x*sy}" r="5" style="fill:${BL}"/>`; });
+  c+=`<text x="${ox+8*sx-6}" y="${oy-24*sy-10}" text-anchor="end" style="font:700 15px var(--body);fill:${BL}">прямая: y = 3x</text>`;
+  c+=`<text x="${ox+5.3*sx}" y="${oy-9*sy}" style="font:700 15px var(--body);fill:${OR}">обратная: x · y = 24</text>`;
+  c+=`<text x="${ox+8*sx+16}" y="${oy+4}" style="font:600 13px var(--body);fill:var(--muted)">x</text><text x="${ox-4}" y="${oy-266}" style="font:600 13px var(--body);fill:var(--muted)">y</text>`;
+  document.getElementById('chart').innerHTML=c;
+  // рис 5: решение
+  let s='', c1=250, c2=470, W=170;
+  const cell=(cx,y,txt,col)=>`<rect x="${cx-W/2}" y="${y-26}" width="${W}" height="44" rx="8" style="fill:${col};fill-opacity:.15;stroke:${col};stroke-width:1.6"/>`+T(cx,y+5,txt,'700 20px');
+  s+=T(c1,26,'Рабочие','600 15px')+T(c2,26,'Дни','600 15px');
+  s+=cell(c1,70,'6',BL)+cell(c2,70,'12',BL)+cell(c1,140,'9',OR)+cell(c2,140,'x',OR);
+  s+=`<defs><marker id="ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--ink)"/></marker></defs>`;
+  s+=`<line x1="${c1-W/2-20}" y1="58" x2="${c1-W/2-20}" y2="150" style="stroke:${BL};stroke-width:3" marker-end="url(#ma)"/>`;
+  s+=`<line x1="${c2+W/2+20}" y1="150" x2="${c2+W/2+20}" y2="58" style="stroke:${OR};stroke-width:3" marker-end="url(#ma)"/>`;
+  s+=`<text x="${c1-W/2-30}" y="110" text-anchor="end" style="font:600 14px var(--body);fill:${BL}">больше</text><text x="${c2+W/2+32}" y="110" style="font:600 14px var(--body);fill:${OR}">меньше</text>`;
+  s+=T(380,196,'6 : 9 = x : 12  →  x = 6 · 12 : 9 = 8','700 18px');
+  document.getElementById('solve').innerHTML=s;
+})();
+</script>
+
+</body>
+</html>
